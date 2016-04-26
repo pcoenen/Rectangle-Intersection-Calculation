@@ -22,6 +22,9 @@ public class Main {
 	         rechthoeken.add(new Rectangle( Double.parseDouble(array[0]), Double.parseDouble(array[1]), Double.parseDouble(array[2]), Double.parseDouble(array[3])));	        
 	    }
 	    reader.close();
+	    
+	    Algorithm algorithm = new Algorithm1(rechthoeken);
+	    algorithm.run();
 	} 
 
 }
