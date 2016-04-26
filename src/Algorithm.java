@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 
 
@@ -6,7 +7,7 @@ public abstract class Algorithm {
 		setRechthoeken(rechthoeken);
 	}
 	
-	abstract void run();
+	abstract ArrayList<double[]> run();
 	
 	
 	protected HashSet<Rectangle> getRechthoeken() {

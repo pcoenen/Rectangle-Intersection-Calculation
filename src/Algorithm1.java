@@ -7,7 +7,7 @@ public class Algorithm1 extends Algorithm {
 		super(rechthoeken);
 	}
 
-	void run(){
+	ArrayList<double[]> run(){
 		ArrayList<double[]> intersections = new ArrayList<>();
 		for(Rectangle rect1 : getRechthoeken()){
 			for(Rectangle rect2 : getRechthoeken()){
@@ -22,6 +22,7 @@ public class Algorithm1 extends Algorithm {
 		for (double[] intersection : intersections) {
 			System.out.println(intersection[0] + " " + intersection[1]);
 		}
+		return intersections;
 	}
 	
 	private boolean hasIntersection(Rectangle rect1, Rectangle rect2) {

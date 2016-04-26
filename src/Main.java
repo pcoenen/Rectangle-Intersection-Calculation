@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Main {
@@ -24,7 +25,9 @@ public class Main {
 	    reader.close();
 	    
 	    Algorithm algorithm = new Algorithm1(rechthoeken);
-	    algorithm.run();
+	    
+	    ArrayList<double[]> intersections = new ArrayList<>();
+	    intersections = algorithm.run();
 	} 
 
 }
