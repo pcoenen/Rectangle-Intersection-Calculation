@@ -11,14 +11,15 @@ public class Algorithm1 {
 		ArrayList<Double[]> intersections = null;
 		for(Rectangle rect1 : getRechthoeken()){
 			for(Rectangle rect2 : getRechthoeken()){
-				ArrayList<Double[]> result = intersect(rect1, rect2);
-				intersections.addAll(result);
+				if(rect1 != rect2 && hasIntersection(rect1, rect2)){
+					ArrayList<Double[]> result = getIntersectionPoints(rect1, rect2);
+					intersections.addAll(result);
+				}				
 			}
 		}
 	}
 	
-	private ArrayList<Double[]> intersect(Rectangle rect1, Rectangle rect2){
-		ArrayList<Double[]> intersections = null;
+	private boolean hasIntersection(Rectangle rect1, Rectangle rect2){
 		boolean intersection = true;
 		if(rect2.getLox() > rect1.getRbx()){
 			intersection = false;
@@ -37,6 +38,11 @@ public class Algorithm1 {
 			//Rechthoeken liggen in elkaar
 			intersection = false;
 		}
+		return intersection;
+	}
+	
+	private ArrayList<Double[]> getIntersectionPoints(Rectangle rect1, Rectangle rect2){
+		
 
 		return null;
 	}
