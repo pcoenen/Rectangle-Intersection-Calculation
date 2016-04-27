@@ -1,8 +1,11 @@
 package main;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -43,12 +46,26 @@ public class Main {
 	    }
 	    reader.close();
 	    
-	    Algorithm algorithm = new Algorithm1(rechthoeken);
-	    
-	    ArrayList<double[]> intersections = new ArrayList<>();
-	    intersections = algorithm.run();
-	    
-	    new Drawer(rechthoeken, intersections);
+	    //select algorithm
+	    Algorithm algorithm = null;
+        switch (algoritme_nummer) {
+        	case "1":
+        		algorithm = new Algorithm1(rechthoeken);
+        		break;
+            default: writeAlgoNotExists();
+            	break;
+        }
+        
+        if(algorithm != null){	    
+	        ArrayList<double[]> intersections = new ArrayList<>();
+	        long start_time = System.nanoTime();
+		    intersections = algorithm.run();
+	        long end_time = System.nanoTime();
+	        //TODO is dit juiste omzetting naar miliseconden ?
+	        double run_time_miliseconds = (end_time - start_time)*10^6;
+	        writeOutput(intersections, run_time_miliseconds);
+		    new Drawer(rechthoeken, intersections);
+        }
 	} 
 	
 	private static JSAPResult parse(JSAP jsap, String[] args) throws JSAPException {
@@ -77,5 +94,25 @@ public class Main {
 		JSAPResult config = jsap.parse(args);
 		return config;
 	}
+	
+	//TODO als file not found exception wordt gegooid maak dan de file
+	private static void writeOutput(ArrayList<double[]> intersections, double time) throws FileNotFoundException, UnsupportedEncodingException{
+		String path = "./"+"output.txt";
+		PrintWriter writer = new PrintWriter(path, "UTF-8");
+		for(double[] intersec : intersections){
+			writer.println(intersec[0]+" "+intersec[1]);
+		}
+		writer.println("");
+		writer.println(time + " miliseconden");
+		writer.close();
+	}
+	
+	//TODO als file not found exception wordt gegooid maak dan de file
+		private static void writeAlgoNotExists() throws FileNotFoundException, UnsupportedEncodingException{
+			String path = "./"+"output.txt";
+			PrintWriter writer = new PrintWriter(path, "UTF-8");			
+			writer.println("Dit algortime werd niet geïmplementeerd");
+			writer.close();
+		}
 
 }
