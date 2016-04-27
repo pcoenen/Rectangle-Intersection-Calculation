@@ -71,6 +71,16 @@ public class Algorithm1 extends Algorithm {
 		// mogelijke snijpunten =  hoekpunten van overlappende rechthoek
 		double[][] possibleIntersectionPoints = {{x1,y1}, {x2,y1}, {x1,y2}, {x2,y2}};
 		for (double[] point : possibleIntersectionPoints) {
+			if((point[0] == rect1.getLox() || point[0] == rect1.getRbx()) 
+					&& (point[1] == rect2.getLoy() || point[1] == rect2.getRby())){
+				// add point as intersection point
+				intersectionPoints.add(point);
+			} else if((point[0] == rect2.getLox() || point[0] == rect2.getRbx()) 
+					&& (point[1] == rect1.getLoy() || point[1] == rect1.getRby())){
+				// add point as intersection point
+				intersectionPoints.add(point);
+			}
+			/**
 			if (point[0] == rect1.getLox() && point[1] != rect1.getLoy()) {
 				// add point as intersection point
 				intersectionPoints.add(point);
@@ -83,7 +93,7 @@ public class Algorithm1 extends Algorithm {
 			} else if (point[1] == rect1.getRby() && point[0] != rect1.getRbx()) {
 				// add point as intersection point
 				intersectionPoints.add(point);
-			}
+			}**/
 		}
 		
 		return intersectionPoints;
