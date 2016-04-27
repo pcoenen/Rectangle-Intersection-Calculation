@@ -15,7 +15,7 @@ public class Algorithm1 extends Algorithm {
 		for(Rectangle rect1 : getRechthoeken()){
 			for(Rectangle rect2 : getRechthoeken()){
 				// TODO: controleer of de snijpunten tussen rect2 en rect1 al berekend zijn, anders hebben we alle snijpunten dubbel
-				if(rect1 != rect2 && !checkedRectangles.contains(rect2) && hasIntersection(rect1, rect2)){
+				if(rect1 != rect2 && !checkedRectangles.contains(rect2)){
 					ArrayList<double[]> result = rect1.getIntersectionPoints(rect2);
 					intersections.addAll(result);
 				}				

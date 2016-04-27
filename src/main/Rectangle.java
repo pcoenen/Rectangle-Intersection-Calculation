@@ -19,7 +19,7 @@ public class Rectangle {
 			double x2 = Math.min(this.getRbx(), rect2.getRbx());
 			double y2 = Math.min(this.getRby(), rect2.getRby());
 			
-			if (x1 >= x2 || y1 >= y2) {
+			if (x1 > x2 || y1 > y2) {
 				return intersectionPoints;
 			}
 			
