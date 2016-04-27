@@ -7,15 +7,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
-import javax.swing.JFrame;
+import com.martiansoftware.jsap.*;
 
-import draw.Draw;
 import draw.Drawer;
 
 public class Main {
-
-	public static void main(String[] args) throws IOException {
-		String path = args[0];
+	public static void main(String[] args) throws IOException, JSAPException {
+		JSAP jsap = new JSAP();
+		JSAPResult config = parse(jsap, args);
+		if (!config.success()) {
+			// stop execution when the command line argument parsing fails
+			System.err.println("Incorrect arguments. For help, use -h or --help");
+			return;
+		}
+		if (config.getBoolean("help")) {
+			System.out.println("Help page");
+			System.out.println();
+			System.out.println(jsap.getHelp());
+			return;
+		}
+				
+		String path = config.getString("input");
 		File input = new File("./"+path);
 		BufferedReader reader = new BufferedReader(new FileReader(input));
 		//Read file
@@ -38,5 +50,32 @@ public class Main {
 	    
 	    new Drawer(rechthoeken, intersections);
 	} 
+	
+	private static JSAPResult parse(JSAP jsap, String[] args) throws JSAPException {
+		// command line parser
+		
+		FlaggedOption input = new FlaggedOption("input") .setShortFlag('i') .setLongFlag("input") .setDefault("invoerrechthoeken.txt");
+		input.setHelp("The input file, 'invoerrechthoeken.txt' if omitted.");
+		jsap.registerParameter(input);
+		
+		FlaggedOption output = new FlaggedOption("output") .setDefault("uitvoerrechthoeken.txt") .setShortFlag('o') .setLongFlag("output");
+		output.setHelp("The output file, 'uitvoerrechthoeken.txt' if omitted.");
+		jsap.registerParameter(output);
+		
+		Switch draw = new Switch("draw") .setShortFlag('d') .setLongFlag("draw");
+		draw.setHelp("Request visual output.");
+		jsap.registerParameter(draw);
+		
+		Switch help = new Switch("help") .setShortFlag('h') .setLongFlag("help");
+		help.setHelp("Open the help page.");
+		jsap.registerParameter(help);
+		
+		FlaggedOption random = new FlaggedOption("random") .setShortFlag('r') .setLongFlag("random") .setStringParser(JSAP.INTEGER_PARSER);
+		random.setHelp("Use a random rectangle generator instead of an input file. Specify the number of rectangles.");
+		jsap.registerParameter(random);
+		
+		JSAPResult config = jsap.parse(args);
+		return config;
+	}
 
 }
