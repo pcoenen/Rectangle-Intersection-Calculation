@@ -1,6 +1,8 @@
+package main;
+
 
 public class Rectangle {
-	Rectangle(double lox, double loy, double rbx, double rby){
+	public Rectangle(double lox, double loy, double rbx, double rby){
 		setLox(lox);
 		setLoy(loy);
 		setRbx(rbx);

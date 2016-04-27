@@ -1,28 +1,23 @@
 package draw;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
+import java.util.HashSet;
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
-public class Test extends JPanel {
+import main.Rectangle;
 
-	@Override
-	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.BLACK);
-		g2d.drawRect(50, 50, 30, 30);
-	}
-	
+public class Test {
+
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Vierkanten");
-		frame.add(new Test());
+		//maken rechthoekset
+		HashSet<Rectangle> set = new HashSet<>();
+		set.add(new Rectangle(00, 00, 0.2, 0.2));
+		//teken shit
+		/**JFrame frame = new JFrame("Rechthoeken");
+		frame.add(new Draw(set));
 		frame.setSize(1000,1000);
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);**/
 	}
+
 }
