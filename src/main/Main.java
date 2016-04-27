@@ -6,14 +6,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import javax.swing.JFrame;
+import com.martiansoftware.jsap.*;
 
-import draw.Draw;
 import draw.Drawer;
 
 public class Main {
-
-	public static void main(String[] args) throws IOException {
+	// TODO: statische klasse?
+	public void main(String[] args) throws IOException, JSAPException {
+		JSAPResult config = this.parse(args);
+				
 		String path = args[0];
 		File input = new File("./"+path);
 		BufferedReader reader = new BufferedReader(new FileReader(input));
@@ -37,5 +38,24 @@ public class Main {
 	    
 	    new Drawer(rechthoeken, intersections);
 	} 
+	
+	private JSAPResult parse(String[] args) throws JSAPException {
+		// command line parser
+		JSAP jsap = new JSAP(); 
+		
+		FlaggedOption inputFile = new FlaggedOption("input")
+										.setShortFlag('i')
+										.setLongFlag("input");
+		jsap.registerParameter(inputFile);
+		FlaggedOption outputFile = new FlaggedOption("output")
+										.setShortFlag('o')
+										.setLongFlag("output");
+		jsap.registerParameter(outputFile);
+		Switch draw = new Switch("draw") .setShortFlag('d') .setLongFlag("draw");
+		jsap.registerParameter(draw);
+		
+		JSAPResult config = jsap.parse(args);
+		return config;
+	}
 
 }
