@@ -1,5 +1,6 @@
 package main;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class Algorithm1 extends Algorithm {
@@ -23,7 +24,7 @@ public class Algorithm1 extends Algorithm {
 		}
 		// TODO: only for debug purposes
 		for (double[] intersection : intersections) {
-			//System.out.println(intersection[0] + " " + intersection[1]);
+			System.out.println(intersection[0] + " " + intersection[1]);
 		}
 		return intersections;
 	}
