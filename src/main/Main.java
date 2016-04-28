@@ -7,9 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 
 import com.martiansoftware.jsap.*;
@@ -40,7 +38,7 @@ public class Main {
 				return;
 			}
 		}
-				
+		
 		String path = config.getString("input");
 		File input = new File("./"+path);
 		BufferedReader reader = new BufferedReader(new FileReader(input));
@@ -72,9 +70,9 @@ public class Main {
 	        long start_time = System.nanoTime();
 		    intersections = algorithm.run();
 	        long end_time = System.nanoTime();
-	        //TODO is dit juiste omzetting naar miliseconden ?
-	        double run_time_miliseconds = (end_time - start_time)*10^6;
+	        double run_time_miliseconds = (end_time - start_time)/10^6;
 	        writeOutput(intersections, run_time_miliseconds, "./"+config.getString("output"));
+	        System.out.println("Algoritme voltooid in " + run_time_miliseconds + " ms.");
 		    if (config.getBoolean("draw")) {
 		    	new Drawer(rechthoeken, intersections);
 		    }

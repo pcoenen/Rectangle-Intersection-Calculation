@@ -33,15 +33,12 @@ public class Draw extends JPanel {
 		HashSet<Rectangle> rechthoeken = getRechthoeken();
 		for(Rectangle rechthoek : rechthoeken){
 			int[] coordinaten = getCoordinates(rechthoek);
-			System.out.println(Arrays.toString(coordinaten));
 			g2d.drawRect(coordinaten[0], coordinaten[1], coordinaten[2], coordinaten[3]);
 		}
-		g2d.setColor(Color.GREEN);
 		g2d.setColor(Color.RED);
 		ArrayList<double[]> punten = getPunten();
 		for(double[] punt: punten){
 			int[] coordinatenSnijpunten = getCoordinates(punt);
-			System.out.println(Arrays.toString(coordinatenSnijpunten));
 			g2d.fillRect(coordinatenSnijpunten[0], coordinatenSnijpunten[1], coordinatenSnijpunten[2], coordinatenSnijpunten[3]);
 		}
 	}
