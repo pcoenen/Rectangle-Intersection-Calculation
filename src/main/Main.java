@@ -41,10 +41,18 @@ public class Main {
 		
 		String path = config.getString("input");
 		File input = new File("./"+path);
-		BufferedReader reader = new BufferedReader(new FileReader(input));
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(input));
+		} catch (FileNotFoundException e) {
+			System.err.println("Input file does not exists!");
+			return;
+		}
+		
 		//Read file
 	    String algoritme_nummer = reader.readLine();
-	    String n = reader.readLine();
+	    @SuppressWarnings("unused")
+		String n = reader.readLine();
 	    //Lees de input rechthoeken
 	    String text = null;
 	    String[] array;
