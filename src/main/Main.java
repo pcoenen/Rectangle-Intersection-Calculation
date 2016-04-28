@@ -32,7 +32,7 @@ public class Main {
 			return;
 		}
 		
-		if (config.getBoolean("random")) {
+		if (config.contains("random")) {
 			if (config.contains("algorithm")) {
 				new Input_generator(config.getInt("random"), config.getInt("algorithm"), config.getString("input"));
 			} else {
