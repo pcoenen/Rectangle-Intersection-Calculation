@@ -7,11 +7,10 @@ import java.util.Random;
 
 public class Input_generator {
 
-	public static void main(String[] args) throws UnsupportedEncodingException, FileNotFoundException {
-		int n = 10;
-		String path = "./"+"input.txt";
+	public Input_generator(int n, int algoritme, String inputFile) throws UnsupportedEncodingException, FileNotFoundException {
+		String path = "./" + inputFile;
 		PrintWriter writer = new PrintWriter(path, "UTF-8");
-		writer.println("1");
+		writer.println(algoritme);
 		writer.println(n);
 		int i = 0;
 		while(i<n){
@@ -20,7 +19,6 @@ public class Input_generator {
 			i++;			
 		}
 		writer.close();
-		
 	}
 	
 	private static double[] randomRect(){

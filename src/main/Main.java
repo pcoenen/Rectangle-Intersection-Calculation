@@ -1,4 +1,6 @@
 package main;
+import generate_input.Input_generator;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,6 +31,15 @@ public class Main {
 			System.out.println(jsap.getHelp());
 			return;
 		}
+		
+		if (config.getBoolean("random")) {
+			if (config.contains("algorithm")) {
+				new Input_generator(config.getInt("random"), config.getInt("algorithm"), config.getString("input"));
+			} else {
+				System.err.println("Please specify an algorithm if you want to use random input.");
+				return;
+			}
+		}
 				
 		String path = config.getString("input");
 		File input = new File("./"+path);
@@ -52,7 +63,7 @@ public class Main {
         	case "1":
         		algorithm = new Algorithm1(rechthoeken);
         		break;
-            default: writeAlgoNotExists();
+            default: writeAlgoNotExists(config.getString("output"));
             	break;
         }
         
@@ -63,8 +74,10 @@ public class Main {
 	        long end_time = System.nanoTime();
 	        //TODO is dit juiste omzetting naar miliseconden ?
 	        double run_time_miliseconds = (end_time - start_time)*10^6;
-	        writeOutput(intersections, run_time_miliseconds);
-		    new Drawer(rechthoeken, intersections);
+	        writeOutput(intersections, run_time_miliseconds, "./"+config.getString("output"));
+		    if (config.getBoolean("draw")) {
+		    	new Drawer(rechthoeken, intersections);
+		    }
         }
 	} 
 	
@@ -72,11 +85,11 @@ public class Main {
 		// command line parser
 		
 		FlaggedOption input = new FlaggedOption("input") .setShortFlag('i') .setLongFlag("input") .setDefault("invoerrechthoeken.txt");
-		input.setHelp("The input file, 'invoerrechthoeken.txt' if omitted.");
+		input.setHelp("The input file.");
 		jsap.registerParameter(input);
 		
 		FlaggedOption output = new FlaggedOption("output") .setDefault("uitvoerrechthoeken.txt") .setShortFlag('o') .setLongFlag("output");
-		output.setHelp("The output file, 'uitvoerrechthoeken.txt' if omitted.");
+		output.setHelp("The output file.");
 		jsap.registerParameter(output);
 		
 		Switch draw = new Switch("draw") .setShortFlag('d') .setLongFlag("draw");
@@ -91,14 +104,17 @@ public class Main {
 		random.setHelp("Use a random rectangle generator instead of an input file. Specify the number of rectangles.");
 		jsap.registerParameter(random);
 		
+		FlaggedOption algorithm = new FlaggedOption("algorithm") .setShortFlag('a') .setLongFlag("algorithm") .setStringParser(JSAP.INTEGER_PARSER);
+		algorithm.setHelp("The algorithm that must be used when a random input file is generated.");
+		jsap.registerParameter(algorithm);
+		
 		JSAPResult config = jsap.parse(args);
 		return config;
 	}
 	
 	//TODO als file not found exception wordt gegooid maak dan de file
-	private static void writeOutput(ArrayList<double[]> intersections, double time) throws FileNotFoundException, UnsupportedEncodingException{
-		String path = "./"+"output.txt";
-		PrintWriter writer = new PrintWriter(path, "UTF-8");
+	private static void writeOutput(ArrayList<double[]> intersections, double time, String outputPath) throws FileNotFoundException, UnsupportedEncodingException{
+		PrintWriter writer = new PrintWriter(outputPath, "UTF-8");
 		for(double[] intersec : intersections){
 			writer.println(intersec[0]+" "+intersec[1]);
 		}
@@ -108,11 +124,10 @@ public class Main {
 	}
 	
 	//TODO als file not found exception wordt gegooid maak dan de file
-		private static void writeAlgoNotExists() throws FileNotFoundException, UnsupportedEncodingException{
-			String path = "./"+"output.txt";
-			PrintWriter writer = new PrintWriter(path, "UTF-8");			
-			writer.println("Dit algortime werd niet geïmplementeerd");
-			writer.close();
-		}
+	private static void writeAlgoNotExists(String outputPath) throws FileNotFoundException, UnsupportedEncodingException{
+		PrintWriter writer = new PrintWriter(outputPath, "UTF-8");			
+		writer.println("Dit algortime werd niet geïmplementeerd");
+		writer.close();
+	}
 
 }
