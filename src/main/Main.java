@@ -51,7 +51,6 @@ public class Main {
 		
 		//Read file
 	    String algoritme_nummer = reader.readLine();
-	    @SuppressWarnings("unused")
 		String n = reader.readLine();
 	    //Lees de input rechthoeken
 	    String text = null;
