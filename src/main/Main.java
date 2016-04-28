@@ -70,7 +70,7 @@ public class Main {
 	        long start_time = System.nanoTime();
 		    intersections = algorithm.run();
 	        long end_time = System.nanoTime();
-	        double run_time_miliseconds = (end_time - start_time)/10^6;
+	        double run_time_miliseconds = (end_time - start_time)/(1e6);
 	        writeOutput(intersections, run_time_miliseconds, "./"+config.getString("output"));
 	        System.out.println("Algoritme voltooid in " + run_time_miliseconds + " ms.");
 		    if (config.getBoolean("draw")) {
@@ -123,8 +123,8 @@ public class Main {
 		for(double[] intersec : intersections){
 			writer.println(intersec[0]+" "+intersec[1]);
 		}
-		writer.println("");
-		writer.println(time + " miliseconden");
+		writer.println();
+		writer.println(time);
 		writer.close();
 	}
 	

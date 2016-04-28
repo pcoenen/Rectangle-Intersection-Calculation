@@ -22,10 +22,6 @@ public class Algorithm1 extends Algorithm {
 			}
 			checkedRectangles.add(rect1);
 		}
-		// TODO: only for debug purposes
-		for (double[] intersection : intersections) {
-			System.out.println(intersection[0] + " " + intersection[1]);
-		}
 		return intersections;
 	}	
 }
