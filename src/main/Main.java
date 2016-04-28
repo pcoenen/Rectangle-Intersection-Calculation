@@ -69,6 +69,9 @@ public class Main {
         	case "1":
         		algorithm = new Algorithm1(rechthoeken);
         		break;
+        	case "2":
+        		algorithm = new Algorithm2(rechthoeken);
+        		break;
             default: writeAlgoNotExists(config.getString("output"));
             	break;
         }

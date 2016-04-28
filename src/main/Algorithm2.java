@@ -28,8 +28,8 @@ public class Algorithm2 extends Algorithm {
 				//Zet de eindwaarde van de rechthoek in de queue
 				queue.add(new StructureForPQ(struct.getRechthoek(), 1, struct.getRechthoek().getRbx()));
 				//Vergelijk alle rechthoeken die actief zijn
-				intersections.addAll(check(active));
-			//Als de rechthoek wel al actieve is
+				intersections.addAll(check(struct.getRechthoek(), active));
+			//Als de rechthoek wel al actief is
 			} else if(struct.getStatus() == 1){
 				//Haal rechthoek uit actieve lijst
 				active.remove(struct.getRechthoek());
@@ -38,19 +38,17 @@ public class Algorithm2 extends Algorithm {
 		return intersections;
 	}	
 	
-	ArrayList<double[]> check(HashSet<Rectangle> actieveRect){
+	ArrayList<double[]> check(Rectangle rect1, HashSet<Rectangle> actieveRect){
 		ArrayList<double[]> intersections = new ArrayList<>();
 		HashSet<Rectangle> checkedRectangles = new HashSet<>();
-		for(Rectangle rect1 : actieveRect){
-			for(Rectangle rect2 : actieveRect){
-				// TODO: controleer of de snijpunten tussen rect2 en rect1 al berekend zijn, anders hebben we alle snijpunten dubbel
-				if(rect1 != rect2 && !checkedRectangles.contains(rect2)){
-					ArrayList<double[]> result = rect1.getIntersectionPoints(rect2);
-					intersections.addAll(result);
-				}				
-			}
-			checkedRectangles.add(rect1);
+		for(Rectangle rect2 : actieveRect){
+			// TODO: controleer of de snijpunten tussen rect2 en rect1 al berekend zijn, anders hebben we alle snijpunten dubbel
+			if(rect1 != rect2 && !checkedRectangles.contains(rect2)){
+				ArrayList<double[]> result = rect1.getIntersectionPoints(rect2);
+				intersections.addAll(result);
+			}				
 		}
+		checkedRectangles.add(rect1);
 		return intersections;
 	}
 }
