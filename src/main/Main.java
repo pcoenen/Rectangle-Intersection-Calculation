@@ -51,14 +51,16 @@ public class Main {
 		
 		//Read file
 	    String algoritme_nummer = reader.readLine();
-		String n = reader.readLine();
+		int n = Integer.parseInt(reader.readLine());
 	    //Lees de input rechthoeken
 	    String text = null;
 	    String[] array;
 	    HashSet<Rectangle> rechthoeken = new HashSet<>();
-	    while ((text = reader.readLine()) != null) {
+	    int i = 0;
+	    while (i < n && (text = reader.readLine()) != null) {
 	         array = text.split(" ");
-	         rechthoeken.add(new Rectangle( Double.parseDouble(array[0]), Double.parseDouble(array[1]), Double.parseDouble(array[2]), Double.parseDouble(array[3])));	        
+	         rechthoeken.add(new Rectangle( Double.parseDouble(array[0]), Double.parseDouble(array[1]), Double.parseDouble(array[2]), Double.parseDouble(array[3])));	
+	         i++;
 	    }
 	    reader.close();
 	    
