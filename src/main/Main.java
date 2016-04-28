@@ -82,8 +82,9 @@ public class Main {
 		    intersections = algorithm.run();
 	        long end_time = System.nanoTime();
 	        double run_time_miliseconds = (end_time - start_time)/(1e6);
+	        System.out.println("Algoritme " + algoritme_nummer + " op " + n + " rechthoeken voltooid in " + run_time_miliseconds + " ms.");
 	        writeOutput(intersections, run_time_miliseconds, "./"+config.getString("output"));
-	        System.out.println("Algoritme voltooid in " + run_time_miliseconds + " ms.");
+	        System.out.println("Schrijven naar " + config.getString("output") + " voltooid.");
 		    if (config.getBoolean("draw")) {
 		    	new Drawer(rechthoeken, intersections);
 		    }
