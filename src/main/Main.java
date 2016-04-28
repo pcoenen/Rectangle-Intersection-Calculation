@@ -112,9 +112,16 @@ public class Main {
 		return config;
 	}
 	
-	//TODO als file not found exception wordt gegooid maak dan de file
-	private static void writeOutput(ArrayList<double[]> intersections, double time, String outputPath) throws FileNotFoundException, UnsupportedEncodingException{
-		PrintWriter writer = new PrintWriter(outputPath, "UTF-8");
+	private static void writeOutput(ArrayList<double[]> intersections, double time, String outputPath) throws IOException {
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(outputPath, "UTF-8");
+		} catch (FileNotFoundException e) {
+			File file = new File(outputPath);
+			file.createNewFile();
+			writer = new PrintWriter(outputPath, "UTF-8");
+		}
+		
 		for(double[] intersec : intersections){
 			writer.println(intersec[0]+" "+intersec[1]);
 		}
@@ -123,9 +130,15 @@ public class Main {
 		writer.close();
 	}
 	
-	//TODO als file not found exception wordt gegooid maak dan de file
-	private static void writeAlgoNotExists(String outputPath) throws FileNotFoundException, UnsupportedEncodingException{
-		PrintWriter writer = new PrintWriter(outputPath, "UTF-8");			
+	private static void writeAlgoNotExists(String outputPath) throws IOException {
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(outputPath, "UTF-8");
+		} catch (FileNotFoundException e) {
+			File file = new File(outputPath);
+			file.createNewFile();
+			writer = new PrintWriter(outputPath, "UTF-8");
+		}			
 		writer.println("Dit algortime werd niet geïmplementeerd");
 		writer.close();
 	}

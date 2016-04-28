@@ -1,15 +1,24 @@
 package generate_input;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
 public class Input_generator {
 
-	public Input_generator(int n, int algoritme, String inputFile) throws UnsupportedEncodingException, FileNotFoundException {
+	public Input_generator(int n, int algoritme, String inputFile) throws IOException {
 		String path = "./" + inputFile;
-		PrintWriter writer = new PrintWriter(path, "UTF-8");
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(path, "UTF-8");
+		} catch (FileNotFoundException e) {
+			File file = new File(path);
+			file.createNewFile();
+			writer = new PrintWriter(path, "UTF-8");
+		}
 		writer.println(algoritme);
 		writer.println(n);
 		int i = 0;
