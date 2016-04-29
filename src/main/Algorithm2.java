@@ -40,6 +40,7 @@ public class Algorithm2 extends Algorithm {
 	
 	ArrayList<double[]> check(Rectangle rect1, HashSet<Rectangle> actieveRect){
 		ArrayList<double[]> intersections = new ArrayList<>();
+		//TODO kan deze set niet weg ? hier wel toch ?
 		HashSet<Rectangle> checkedRectangles = new HashSet<>();
 		for(Rectangle rect2 : actieveRect){
 			// TODO: controleer of de snijpunten tussen rect2 en rect1 al berekend zijn, anders hebben we alle snijpunten dubbel
