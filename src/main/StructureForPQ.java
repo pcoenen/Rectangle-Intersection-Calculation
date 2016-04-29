@@ -44,6 +44,9 @@ class structComparator implements Comparator<StructureForPQ>
     {
     	if (s1.getxCoordinate() < s2.getxCoordinate()) return -1;
         if (s1.getxCoordinate() > s2.getxCoordinate()) return 1;
+        if (s1.getStatus() == 0) return -1;
+        if (s2.getStatus() == 0) return 1;
         return 0;
+        
     }
 }
