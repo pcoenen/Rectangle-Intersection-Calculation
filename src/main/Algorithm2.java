@@ -15,15 +15,12 @@ public class Algorithm2 extends Algorithm {
 		PriorityQueue<StructureForPQ> queue = new PriorityQueue<>(new structComparator());
 		for(Rectangle rechthoek : getRechthoeken()){
 			StructureForPQ struct = new StructureForPQ(rechthoek, 0, rechthoek.getLox());
-			System.out.println("in queue = " + struct.getRechthoek());
 			queue.add(struct);			
 		}
 		//Start algorimte
 		HashSet<Rectangle> active = new HashSet<>();
 		while(!queue.isEmpty()){
 			StructureForPQ struct = queue.poll();
-			System.out.println("Uit queue = " + struct.getRechthoek());
-			System.out.println(struct.getxCoordinate());
 			//Als de rechthoek zich nog niet actief is
 			if(struct.getStatus() == 0){
 				//zet hem in de actieve lijst
@@ -35,7 +32,6 @@ public class Algorithm2 extends Algorithm {
 			//Als de rechthoek wel al actief is
 			} else if(struct.getStatus() == 1){
 				//Haal rechthoek uit actieve lijst
-				System.out.println("removed = " + struct.getRechthoek());
 				active.remove(struct.getRechthoek());
 			}
 		}
