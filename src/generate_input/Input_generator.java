@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class Input_generator {
 
-	public Input_generator(int n, int algoritme, String inputFile) throws IOException {
+	public Input_generator(int n, int algoritme, double maxLengthSide, String inputFile) throws IOException {
 		String path = "./" + inputFile;
 		PrintWriter writer;
 		try {
@@ -22,14 +22,14 @@ public class Input_generator {
 		writer.println(n);
 		int i = 0;
 		while(i<n){
-			double[] rect = randomRect();
+			double[] rect = randomRect(maxLengthSide);
 			writer.println(rect[0]+" "+rect[1]+" "+rect[2]+" "+rect[3]);
 			i++;			
 		}
 		writer.close();
 	}
 	
-	private static double[] randomRect(){
+	private static double[] randomRect(double maxLengthSide){
 		double[] coordinates = new double[4];
 		double min = 0;
 		double max = 1;
@@ -37,9 +37,9 @@ public class Input_generator {
 		coordinates[0] = min + (max - min) * r.nextDouble();
 		coordinates[1] = min + (max - min) * r.nextDouble();
 		min = coordinates[0];
-		coordinates[2] = min + (max - min) * r.nextDouble();
+		coordinates[2] = min + Math.min(maxLengthSide, (max - min)) * r.nextDouble();
 		min = coordinates[1];
-		coordinates[3] = min + (max - min) * r.nextDouble();
+		coordinates[3] = min + Math.min(maxLengthSide, (max - min)) * r.nextDouble();
 		return coordinates;		
 	}
 
