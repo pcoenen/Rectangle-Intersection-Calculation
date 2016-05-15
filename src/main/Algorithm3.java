@@ -61,12 +61,10 @@ public class Algorithm3 extends Algorithm {
 			recursive(structures1, start1, eind1, verticaal1);
 			recursive(structures2, start2, eind2, verticaal2);
 			//merge
-			double min1 = structures1.get(0).getLine().getStartPoint().getX();
-			double max1 = structures1.get(structures1.size()-1).getLine().getStartPoint().getX();
-			double min2 = structures2.get(0).getLine().getStartPoint().getX();
-			double max2 = structures2.get(structures2.size()-1).getLine().getStartPoint().getX();
+			double min1 = structures1.get(0).getXValue();
+			double max2 = structures2.get(structures2.size()-1).getXValue();
 			for(Line line : start1){
-				if(line.getEndPoint().getX() >= max2){
+				if(line.getEndPoint().getX() > max2){
 					for(Line vertical : verticaal2){
 						double y = line.getStartPoint().getY();
 						if(vertical.getStartPoint().getY() < y && vertical.getEndPoint().getY() > y){
@@ -78,7 +76,7 @@ public class Algorithm3 extends Algorithm {
 				}
 			}
 			for(Line line : eind2){
-				if(line.getEndPoint().getX() <= min1){
+				if(line.getStartPoint().getX() < min1){
 					for(Line vertical : verticaal1){
 						double y = line.getStartPoint().getY();
 						if(vertical.getStartPoint().getY() < y && vertical.getEndPoint().getY() > y){
@@ -90,7 +88,7 @@ public class Algorithm3 extends Algorithm {
 				}
 			}
 			start.addAll(start2);
-			eind.addAll(eind2);
+			eind.addAll(eind1);
 			verticaal.addAll(verticaal1);
 			verticaal.addAll(verticaal2);
 		}	

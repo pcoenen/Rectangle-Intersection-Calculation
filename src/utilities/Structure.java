@@ -6,6 +6,19 @@ public class Structure {
 		setType(type);;
 	}
 	
+	public double getXValue(){
+		switch (this.getType()) {
+	    	case START_PUNT:
+	    		Line line = this.getLine();
+	    		return line.getStartPoint().getX();
+	    	case EIND_PUNT:
+	    		return this.getLine().getEndPoint().getX();
+	    	case VERTICAAL_LIJNSTUK:
+	    		return this.getLine().getStartPoint().getX();
+		}
+		return (Double) null;
+	}
+	
 	public Line getLine() {
 		return line;
 	}
