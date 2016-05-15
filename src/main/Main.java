@@ -76,7 +76,9 @@ public class Main {
         	case "3":
         		algorithm = new Algorithm3(rechthoeken);
         		break;
-            default: writeAlgoNotExists(config.getString("output"));
+            default: 
+            	writeAlgoNotExists(config.getString("output"));
+            	System.out.println("This algorithm is not implemented. Please choose a valid algorithm.");
             	break;
         }
         
@@ -153,7 +155,7 @@ public class Main {
 			file.createNewFile();
 			writer = new PrintWriter(outputPath, "UTF-8");
 		}			
-		writer.println("Dit algortime werd niet geïmplementeerd");
+		writer.println("Dit algortime is niet geïmplementeerd");
 		writer.close();
 	}
 
