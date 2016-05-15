@@ -4,11 +4,11 @@ import java.util.HashSet;
 
 
 public abstract class Algorithm {
-	Algorithm(HashSet<Rectangle> rechthoeken) {
+	public Algorithm(HashSet<Rectangle> rechthoeken) {
 		setRechthoeken(rechthoeken);
 	}
 	
-	abstract ArrayList<double[]> run();
+	public abstract ArrayList<double[]> run();
 	
 	
 	protected HashSet<Rectangle> getRechthoeken() {

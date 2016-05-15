@@ -60,7 +60,7 @@ public class Draw extends JPanel {
 	}
 	
 	private int pasSchaalaan(double punt){
-		return (int) (punt*1000);
+		return (int) (punt*850);
 	}
 
 	public ArrayList<double[]> getPunten() {

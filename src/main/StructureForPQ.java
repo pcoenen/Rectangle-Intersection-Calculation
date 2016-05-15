@@ -38,7 +38,7 @@ public class StructureForPQ {
 	private int status;
 }
 
-class structComparator implements Comparator<StructureForPQ>
+class StructPQComparator implements Comparator<StructureForPQ>
 {
     public int compare(StructureForPQ s1, StructureForPQ s2)
     {

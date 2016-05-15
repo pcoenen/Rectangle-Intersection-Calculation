@@ -4,11 +4,11 @@ import java.util.HashSet;
 
 public class Algorithm1 extends Algorithm {
 	
-	Algorithm1(HashSet<Rectangle> rechthoeken) {
+	public Algorithm1(HashSet<Rectangle> rechthoeken) {
 		super(rechthoeken);
 	}
 
-	ArrayList<double[]> run(){
+	public ArrayList<double[]> run(){
 		ArrayList<double[]> intersections = new ArrayList<>();
 		HashSet<Rectangle> checkedRectangles = new HashSet<>();
 		for(Rectangle rect1 : getRechthoeken()){
@@ -17,10 +17,13 @@ public class Algorithm1 extends Algorithm {
 				if(rect1 != rect2 && !checkedRectangles.contains(rect2)){
 					ArrayList<double[]> result = rect1.getIntersectionPoints(rect2);
 					intersections.addAll(result);
-				}				
+				}
+				aantalChecks++;
 			}
 			checkedRectangles.add(rect1);
 		}
+		System.out.println("Aantal checks = " + aantalChecks);
 		return intersections;
-	}	
+	}
+	long aantalChecks = 0;
 }

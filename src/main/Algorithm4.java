@@ -12,9 +12,9 @@ import utilities.Structure;
 import utilities.StructureComparator;
 import utilities.Type;
 
-public class Algorithm3 extends Algorithm {
+public class Algorithm4 extends Algorithm {
 
-	public Algorithm3(HashSet<Rectangle> rechthoeken) {
+	public Algorithm4(HashSet<Rectangle> rechthoeken) {
 		super(rechthoeken);
 	}
 	
@@ -22,12 +22,8 @@ public class Algorithm3 extends Algorithm {
 
 	public ArrayList<double[]> run(){
 		LineCollection lines =  createLinesOfRectangles(getRechthoeken());
-		ArrayList<Structure> structures = createStructureOfLines(lines);
-		ArrayList<Line> start = new ArrayList<>();
-		ArrayList<Line> eind = new ArrayList<>();
-		ArrayList<Line> verticaal = new ArrayList<>();
-		recursive(structures, start, eind, verticaal);
-		return this.intersections;
+		ArrayList<Structure> structures = createS(lines);
+		recursive(structures, 0, structures.size()-1);
 		
 	}
 	
@@ -49,11 +45,11 @@ public class Algorithm3 extends Algorithm {
 		} else {
 			// devide
 			int pivot = structures.size()/2;
-			List<Structure> structures1 = structures.subList(0, pivot);
+			List<Structure> structures1 = structures.subList(0, pivot-1);
 			ArrayList<Line> start1 = new ArrayList<>();
 			ArrayList<Line> eind1 = new ArrayList<>();
 			ArrayList<Line> verticaal1 = new ArrayList<>();
-			List<Structure> structures2 = structures.subList(pivot, structures.size());
+			List<Structure> structures2 = structures.subList(pivot, structures.size()-1);
 			ArrayList<Line> start2 = new ArrayList<>();
 			ArrayList<Line> eind2 = new ArrayList<>();
 			ArrayList<Line> verticaal2 = new ArrayList<>();
@@ -62,9 +58,9 @@ public class Algorithm3 extends Algorithm {
 			recursive(structures2, start2, eind2, verticaal2);
 			//merge
 			double min1 = structures1.get(0).getLine().getStartPoint().getX();
-			double max1 = structures1.get(structures1.size()-1).getLine().getStartPoint().getX();
+			double max1 = structures1.get(structures1.size()-1).getLine().getEndPoint().getX();
 			double min2 = structures2.get(0).getLine().getStartPoint().getX();
-			double max2 = structures2.get(structures2.size()-1).getLine().getStartPoint().getX();
+			double max2 = structures2.get(structures2.size()-2).getLine().getEndPoint().getX();
 			for(Line line : start1){
 				if(line.getEndPoint().getX() >= max2){
 					for(Line vertical : verticaal2){
@@ -89,8 +85,6 @@ public class Algorithm3 extends Algorithm {
 					eind.add(line);
 				}
 			}
-			start.addAll(start2);
-			eind.addAll(eind2);
 			verticaal.addAll(verticaal1);
 			verticaal.addAll(verticaal2);
 		}	
@@ -108,6 +102,45 @@ public class Algorithm3 extends Algorithm {
 		return structures;
 	}
 	
+	private void LSI(){
+		LineCollection lines = createLinesOfRectangles(getRechthoeken());		
+		ArrayList<Structure> S = createS(lines);
+		ArrayList<Point> left = new ArrayList<>();
+		ArrayList<Point> right = new ArrayList<>();
+		ArrayList<double[]> vertical = new ArrayList<>();
+		Linsect(S, left, right, vertical);
+		
+	}
+	
+	private void Linsect(List<Structure> list, ArrayList<Point> left, ArrayList<Point> right, ArrayList<double[]> vertical){
+		if(list.size() == 1){
+			Structure structure = list.get(0);
+			switch (structure.getType()) {
+	        	case LINKS_PUNT:
+	        		left.add((Point) structure.getObject());
+	        		break;
+	        	case RECHTS_PUNT:
+	        		right.add((Point) structure.getObject());
+	        		break;
+	        	case VERTICAAL_LIJNSTUK:
+	        		Line line = (Line) structure.getObject();
+	        		double[] value = {line.getStartPoint().getY(), line.getEndPoint().getY()};
+	        		vertical.add(value);
+	        		break;
+			}
+		} else {
+			int pivot = list.size()/2;
+			ArrayList<Point> left1 = new ArrayList<>();
+			ArrayList<Point> right1 = new ArrayList<>();
+			ArrayList<double[]> vertical1 = new ArrayList<>();
+			Linsect(list.subList(0, pivot), left1, right1, vertical);
+			ArrayList<Point> left2 = new ArrayList<>();
+			ArrayList<Point> right2 = new ArrayList<>();
+			ArrayList<double[]> vertical2 = new ArrayList<>();
+			Linsect(list.subList(pivot, list.size()-1), left2, right2, vertical2);
+		}
+	}
+	
 	private LineCollection createLinesOfRectangles(Collection<Rectangle> rectangles){
 		ArrayList<Line> horizontal = new ArrayList<>();
 		ArrayList<Line> vertical = new ArrayList<>();
@@ -123,5 +156,18 @@ public class Algorithm3 extends Algorithm {
 		}
 		return new LineCollection(horizontal, vertical);
 		
+	}
+	
+	private ArrayList<Structure> createS(LineCollection lines){
+		ArrayList<Structure> S = new ArrayList<>();
+		for(Line line : lines.getVerticalLines()){
+			S.add(new Structure(line, Type.VERTICAAL_LIJNSTUK));
+		}
+		for(Line line : lines.getHorizontalLines()){
+			S.add(new Structure(line.getStartPoint(), Type.LINKS_PUNT));
+			S.add(new Structure(line.getEndPoint(), Type.RECHTS_PUNT));
+		}
+		S.sort(new StructureComparator());
+		return S;
 	}
 }
