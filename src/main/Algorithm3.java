@@ -18,7 +18,8 @@ public class Algorithm3 extends Algorithm {
 			queue.add(struct);			
 		}
 		//Start algorimte
-		HashSet<Rectangle> active = new HashSet<>();
+		RedBlackBST<Double, Rectangle> activeUp = new RedBlackBST<>();
+		RedBlackBST<Double, Rectangle> activeDown = new RedBlackBST<>();
 		while(!queue.isEmpty()){
 			StructureForPQ struct = queue.poll();
 			//Als de rechthoek zich nog niet actief is
@@ -26,25 +27,76 @@ public class Algorithm3 extends Algorithm {
 				//Zet de eindwaarde van de rechthoek in de queue
 				queue.add(new StructureForPQ(struct.getRechthoek(), 1, struct.getRechthoek().getRbx()));
 				//Vergelijk alle rechthoeken die actief zijn
-				intersections.addAll(check(struct.getRechthoek(), active));
+				intersections.addAll(check(struct.getRechthoek(), activeDown, activeUp));
 				//zet hem in de actieve lijst
-				active.add(struct.getRechthoek());
+				activeUp.put(struct.getRechthoek().getLoy(), struct.getRechthoek());
+				activeDown.put(struct.getRechthoek().getRby(), struct.getRechthoek());
 			//Als de rechthoek wel al actief is
 			} else if(struct.getStatus() == 1){
 				//Haal rechthoek uit actieve lijst
-				active.remove(struct.getRechthoek());
+				activeUp.delete(struct.getRechthoek().getLoy());
+				activeDown.delete(struct.getRechthoek().getRby());
 			}
 		}
 		return intersections;
 	}	
 	
-	ArrayList<double[]> check(Rectangle rect1, HashSet<Rectangle> actieveRect){
+	ArrayList<double[]> check(Rectangle rect1, RedBlackBST<Double, Rectangle> activeDown, RedBlackBST<Double, Rectangle> activeUp){
 		ArrayList<double[]> intersections = new ArrayList<>();
-		for(Rectangle rect2 : actieveRect){
-			// TODO: controleer of de snijpunten tussen rect2 en rect1 al berekend zijn, anders hebben we alle snijpunten dubbel
-			ArrayList<double[]> result = rect1.getIntersectionPoints(rect2);
-			intersections.addAll(result);
+		double checkValue = rect1.getLoy();
+		boolean hasIntersection = true;
+		double key;
+		Rectangle rect2 = null;
+		ArrayList<double[]> result;
+		while(hasIntersection && !activeDown.isEmpty()){
+			try{
+				key = activeDown.ceiling(checkValue);
+			} catch(NullPointerException e){
+				break;
+			}
+			if(rect2 != null){
+				activeDown.put(rect2.getRby(), rect2);
+			}
+			rect2 = activeDown.get(key);
+			result = rect1.getIntersectionPoints(rect2);
+			if(result.size() > 0){
+				intersections.addAll(result);
+				activeDown.delete(key);
+				checkValue = key;
+			} else {
+				hasIntersection = false;
+			}
 		}
+		if(rect2 != null){
+			activeDown.put(rect2.getRby(), rect2);
+			rect2 = null;
+		}
+		//Voor bovenste
+		
+		checkValue = rect1.getLoy();
+		hasIntersection = true;
+		while(hasIntersection && !activeUp.isEmpty()){
+			try{
+				key = activeUp.ceiling(checkValue);
+			} catch(NullPointerException e){
+				break;
+			}
+			if(rect2 != null){
+				activeUp.put(rect2.getLoy(), rect2);
+			}
+			rect2 = activeUp.get(key);
+			result = rect1.getIntersectionPoints(rect2);
+			if(result.size() > 0){
+				intersections.addAll(result);
+				activeUp.delete(key);
+				checkValue = key;
+			} else {
+				hasIntersection = false;
+			}
+		}
+		if(rect2 != null){
+			activeUp.put(rect2.getLoy(), rect2);
+		}		
 		return intersections;
 	}
 }
