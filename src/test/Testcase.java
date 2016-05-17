@@ -38,6 +38,20 @@ public class Testcase {
 	}
 	
 	@Test
+	public void algo1Doubles() throws IOException {
+		HashSet<Rectangle> rechthoeken = getInputRectangles();
+		Algorithm algoritme = new Algorithm1(rechthoeken);
+		ArrayList<double[]> uitvoer = algoritme.run();
+		uitvoer.sort(new doubleComparator());
+		Comparator<double[]> comp = new doubleComparator();
+		for(int i = 1; i < uitvoer.size(); i++){
+			if(comp.compare(uitvoer.get(i-1), uitvoer.get(i)) == 0){
+				assertFalse("Algoritme 1 geeft dubbele waardes terug", true);
+			}
+		}
+	}
+	
+	@Test
 	public void algo2AlwaysSameOutput() throws IOException {
 		HashSet<Rectangle> rechthoeken = getInputRectangles();
 		Algorithm algoritme2 = new Algorithm2(rechthoeken);
@@ -49,6 +63,20 @@ public class Testcase {
 				, uitvoer1.size(), uitvoer2.size());
 		for(int i = 0; i < uitvoer1.size(); i++){
 			assertFalse("Algoritme 2 geeft verschillende uitvoer.", !Arrays.equals(uitvoer1.get(i), uitvoer2.get(i)));
+		}
+	}
+	
+	@Test
+	public void algo2Doubles() throws IOException {
+		HashSet<Rectangle> rechthoeken = getInputRectangles();
+		Algorithm algoritme = new Algorithm2(rechthoeken);
+		ArrayList<double[]> uitvoer = algoritme.run();
+		uitvoer.sort(new doubleComparator());
+		Comparator<double[]> comp = new doubleComparator();
+		for(int i = 1; i < uitvoer.size(); i++){
+			if(comp.compare(uitvoer.get(i-1), uitvoer.get(i)) == 0){
+				assertFalse("Algoritme 2 geeft dubbele waardes terug", true);
+			}
 		}
 	}
 	
@@ -65,6 +93,20 @@ public class Testcase {
 				, uitvoer1.size(), uitvoer2.size());
 		for(int i = 0; i < uitvoer1.size(); i++){
 			assertFalse("Algoritme 3 geeft verschillende uitvoer.", !Arrays.equals(uitvoer1.get(i), uitvoer2.get(i)));
+		}
+	}
+	
+	@Test
+	public void algo3Doubles() throws IOException {
+		HashSet<Rectangle> rechthoeken = getInputRectangles();
+		Algorithm algoritme = new Algorithm3(rechthoeken);
+		ArrayList<double[]> uitvoer = algoritme.run();
+		uitvoer.sort(new doubleComparator());
+		Comparator<double[]> comp = new doubleComparator();
+		for(int i = 1; i < uitvoer.size(); i++){
+			if(comp.compare(uitvoer.get(i-1), uitvoer.get(i)) == 0){
+				assertFalse("Algoritme 3 geeft dubbele waardes terug", true);
+			}
 		}
 	}
 

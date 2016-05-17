@@ -1,6 +1,8 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Rectangle {
 	public Rectangle(double lox, double loy, double rbx, double rby){
@@ -24,7 +26,17 @@ public class Rectangle {
 			}
 			
 			// mogelijke snijpunten =  hoekpunten van overlappende rechthoek
-			double[][] possibleIntersectionPoints = {{x1,y1}, {x2,y1}, {x1,y2}, {x2,y2}};
+			HashSet<double[]> possibleIntersectionPoints = new HashSet<>();
+			possibleIntersectionPoints.add(new double[] {x1,y1});
+			if(x1 != x2){
+				possibleIntersectionPoints.add(new double[] {x2,y1});
+			}
+			if(y1 != y2){
+				possibleIntersectionPoints.add(new double[] {x1,y2});
+			}
+			if(x1 != x2 && y1 != y2){
+				possibleIntersectionPoints.add(new double[] {x2,y2});
+			}			
 			for (double[] point : possibleIntersectionPoints) {
 				if((point[0] == this.getLox() || point[0] == this.getRbx()) 
 						&& (point[1] == rect2.getLoy() || point[1] == rect2.getRby())){
