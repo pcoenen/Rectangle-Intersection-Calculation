@@ -16,14 +16,12 @@ import main.Algorithm;
 import main.Algorithm1;
 import main.Algorithm2;
 import main.Algorithm3;
-import main.Algorithm4;
 import main.Rectangle;
 public class VeelTesten {
 	
 	public static void main(String[] args) throws IOException{
-		boolean error = false;
 		HashSet<Rectangle> rechthoeken;
-		for(int i = 1; i <= 1000000; i++){
+		for(int i = 1; i <= 50000000; i++){
 			if(i%10000 == 0){
 				System.out.println("Test " + i);
 			}
@@ -40,33 +38,29 @@ public class VeelTesten {
 			uitvoer3.sort(new doubleComparator());
 			dubbleFilter(uitvoer3);
 			if(uitvoer1.size() != uitvoer2.size()){
-				error = true;
-				new Drawer(rechthoeken, uitvoer1);
-				new Drawer(rechthoeken, uitvoer2);
+				//				new Drawer(rechthoeken, uitvoer1);
+//				new Drawer(rechthoeken, uitvoer2);
 				System.out.println("Lengte van output één en twee verschillen");
 				break;
 			}			
 			for(int j = 0; j < uitvoer1.size(); j++){
 				if(!Arrays.equals(uitvoer1.get(j), uitvoer2.get(j))){
-					error = true;
-					new Drawer(rechthoeken, uitvoer1);
-					new Drawer(rechthoeken, uitvoer2);
+					//					new Drawer(rechthoeken, uitvoer1);
+//					new Drawer(rechthoeken, uitvoer2);
 					System.out.println("Output één en twee verschillen");
 					return;
 				}
 			}
 			if(uitvoer3.size() != uitvoer2.size()){
-				error = true;
-				new Drawer(rechthoeken, uitvoer2);
-				new Drawer(rechthoeken, uitvoer3);
+				//				new Drawer(rechthoeken, uitvoer2);
+//				new Drawer(rechthoeken, uitvoer3);
 				System.out.println("Lengte van output twee en drie verschillen");
 				break;
 			}
 			for(int j = 0; j < uitvoer2.size(); j++){
 				if(!Arrays.equals(uitvoer3.get(j), uitvoer2.get(j))){
-					error = true;
-					new Drawer(rechthoeken, uitvoer2);
-					new Drawer(rechthoeken, uitvoer3);
+					//					new Drawer(rechthoeken, uitvoer2);
+//					new Drawer(rechthoeken, uitvoer3);
 					System.out.println("Output twee en drie verschillen");
 					return;
 				}
