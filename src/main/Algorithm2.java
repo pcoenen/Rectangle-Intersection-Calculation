@@ -35,7 +35,6 @@ public class Algorithm2 extends Algorithm {
 				active.remove(struct.getRechthoek());
 			}
 		}
-		System.out.println("Aantal checks = " + aantalChecks);
 		return intersections;
 	}	
 	
@@ -45,10 +44,7 @@ public class Algorithm2 extends Algorithm {
 			// TODO: controleer of de snijpunten tussen rect2 en rect1 al berekend zijn, anders hebben we alle snijpunten dubbel
 			ArrayList<double[]> result = rect1.getIntersectionPoints(rect2);
 			intersections.addAll(result);
-			this.aantalChecks++;
 		}
 		return intersections;
 	}
-	
-	long aantalChecks = 0;
 }

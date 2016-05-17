@@ -18,12 +18,9 @@ public class Algorithm1 extends Algorithm {
 					ArrayList<double[]> result = rect1.getIntersectionPoints(rect2);
 					intersections.addAll(result);
 				}
-				aantalChecks++;
 			}
 			checkedRectangles.add(rect1);
 		}
-		System.out.println("Aantal checks = " + aantalChecks);
 		return intersections;
 	}
-	long aantalChecks = 0;
 }
