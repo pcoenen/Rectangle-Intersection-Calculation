@@ -22,6 +22,8 @@ import main.Rectangle;
 
 public class Testcase {
 	
+	private static final int ArrayList = 0;
+
 	@Test
 	public void algo1AlwaysSameOutput() throws IOException {
 		HashSet<Rectangle> rechthoeken = getInputRectangles();
@@ -122,6 +124,7 @@ public class Testcase {
 		uitvoer1.sort(new doubleComparator());
 		uitvoer2.sort(new doubleComparator());
 		uitvoer3.sort(new doubleComparator());
+		dubbleFilter(uitvoer3);
 		assertEquals("Algo 1 & 2 hebben een uitvoer met twee keer een verschillende lengte"
 				, uitvoer1.size(), uitvoer2.size());
 		for(int i = 0; i < uitvoer1.size(); i++){
@@ -131,6 +134,19 @@ public class Testcase {
 				, uitvoer2.size(), uitvoer3.size());
 		for(int i = 0; i < uitvoer1.size(); i++){
 			assertFalse("Algo 2 & 3 hebben verschillende uitvoer.", !Arrays.equals(uitvoer2.get(i), uitvoer3.get(i)));
+		}
+	}
+	
+	private void dubbleFilter(ArrayList<double[]> uitvoer){
+		ArrayList<Integer> buitengooien = new ArrayList<>();
+		Comparator<double[]> comp = new doubleComparator();
+		for(int i = 1; i < uitvoer.size(); i++){
+			if(comp.compare(uitvoer.get(i-1), uitvoer.get(i)) == 0){
+				buitengooien.add(i-1);
+			}
+		}
+		for(int i=buitengooien.size()-1; i >= 0; i--){
+			uitvoer.remove((int) buitengooien.get(i));
 		}
 	}
 	

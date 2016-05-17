@@ -36,6 +36,7 @@ public class Algorithm3 extends Algorithm {
 				//Haal rechthoek uit actieve lijst
 				activeUp.delete(struct.getRechthoek().getLoy());
 				activeDown.delete(struct.getRechthoek().getRby());
+				intersections.addAll(check(struct.getRechthoek(), activeDown, activeUp));
 			}
 		}
 		return intersections;
