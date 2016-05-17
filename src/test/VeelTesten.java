@@ -23,9 +23,11 @@ public class VeelTesten {
 	public static void main(String[] args) throws IOException{
 		boolean error = false;
 		HashSet<Rectangle> rechthoeken;
-		for(int i = 1; i <= 10000; i++){
-			System.out.println("Test " + i);
-			new Input_generator(1500, 2, 1,"input.txt");
+		for(int i = 1; i <= 1000000; i++){
+			if(i%10000 == 0){
+				System.out.println("Test " + i);
+			}
+			new Input_generator(10, 2, 1,"invoerrechthoeken.txt");
 			rechthoeken = getInputRectangles();
 			Algorithm algoritme1 = new Algorithm1(rechthoeken);
 			Algorithm algoritme2 = new Algorithm2(rechthoeken);

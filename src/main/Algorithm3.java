@@ -1,6 +1,9 @@
 package main;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class Algorithm3 extends Algorithm {
@@ -10,7 +13,7 @@ public class Algorithm3 extends Algorithm {
 	}
 
 	public ArrayList<double[]> run(){
-		ArrayList<double[]> intersections = new ArrayList<>();
+		HashMap<Integer, double[]> intersections = new HashMap<>();
 		// Alles toevoegen aan priority queue
 		PriorityQueue<StructureForPQ> queue = new PriorityQueue<>(new StructPQComparator());
 		for(Rectangle rechthoek : getRechthoeken()){
@@ -27,7 +30,9 @@ public class Algorithm3 extends Algorithm {
 				//Zet de eindwaarde van de rechthoek in de queue
 				queue.add(new StructureForPQ(struct.getRechthoek(), 1, struct.getRechthoek().getRbx()));
 				//Vergelijk alle rechthoeken die actief zijn
-				intersections.addAll(check(struct.getRechthoek(), activeDown, activeUp));
+				for(double[] intersection : check(struct.getRechthoek(), activeDown, activeUp)){
+					intersections.put((Integer)Arrays.hashCode(intersection), intersection);
+				}
 				//zet hem in de actieve lijst
 				activeUp.put(struct.getRechthoek().getLoy(), struct.getRechthoek());
 				activeDown.put(struct.getRechthoek().getRby(), struct.getRechthoek());
@@ -36,10 +41,12 @@ public class Algorithm3 extends Algorithm {
 				//Haal rechthoek uit actieve lijst
 				activeUp.delete(struct.getRechthoek().getLoy());
 				activeDown.delete(struct.getRechthoek().getRby());
-				intersections.addAll(check(struct.getRechthoek(), activeDown, activeUp));
+				for(double[] intersection : check(struct.getRechthoek(), activeDown, activeUp)){
+					intersections.put((Integer)Arrays.hashCode(intersection), intersection);
+				}
 			}
 		}
-		return intersections;
+		return new ArrayList<double[]>(intersections.values());
 	}	
 	
 	ArrayList<double[]> check(Rectangle rect1, RedBlackBST<Double, Rectangle> activeDown, RedBlackBST<Double, Rectangle> activeUp){

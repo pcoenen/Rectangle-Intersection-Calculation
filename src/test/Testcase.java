@@ -14,6 +14,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
+import generate_input.Input_generator;
 import main.Algorithm;
 import main.Algorithm1;
 import main.Algorithm2;
