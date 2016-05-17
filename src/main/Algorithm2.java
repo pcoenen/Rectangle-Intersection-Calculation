@@ -9,12 +9,12 @@ public class Algorithm2 extends Algorithm {
 		super(rechthoeken);
 	}
 
-	public ArrayList<double[]> run(){
-		ArrayList<double[]> intersections = new ArrayList<>();
+	public HashSet<Coordinate> run(){
+		HashSet<Coordinate> intersections = new HashSet<>();
 		// Alles toevoegen aan priority queue
 		PriorityQueue<StructureForPQ> queue = new PriorityQueue<>(new StructPQComparator());
 		for(Rectangle rechthoek : getRechthoeken()){
-			StructureForPQ struct = new StructureForPQ(rechthoek, 0, rechthoek.getLox());
+			StructureForPQ struct = new StructureForPQ(rechthoek, 0, rechthoek.getLo().getX());
 			queue.add(struct);			
 		}
 		//Start algorimte
@@ -24,7 +24,7 @@ public class Algorithm2 extends Algorithm {
 			//Als de rechthoek zich nog niet actief is
 			if(struct.getStatus() == 0){
 				//Zet de eindwaarde van de rechthoek in de queue
-				queue.add(new StructureForPQ(struct.getRechthoek(), 1, struct.getRechthoek().getRbx()));
+				queue.add(new StructureForPQ(struct.getRechthoek(), 1, struct.getRechthoek().getRb().getX()));
 				//Vergelijk alle rechthoeken die actief zijn
 				intersections.addAll(check(struct.getRechthoek(), active));
 				//zet hem in de actieve lijst
@@ -38,11 +38,11 @@ public class Algorithm2 extends Algorithm {
 		return intersections;
 	}	
 	
-	ArrayList<double[]> check(Rectangle rect1, HashSet<Rectangle> actieveRect){
-		ArrayList<double[]> intersections = new ArrayList<>();
+	HashSet<Coordinate> check(Rectangle rect1, HashSet<Rectangle> actieveRect){
+		HashSet<Coordinate> intersections = new HashSet<>();
 		for(Rectangle rect2 : actieveRect){
 			// TODO: controleer of de snijpunten tussen rect2 en rect1 al berekend zijn, anders hebben we alle snijpunten dubbel
-			ArrayList<double[]> result = rect1.getIntersectionPoints(rect2);
+			HashSet<Coordinate> result = rect1.getIntersectionPoints(rect2);
 			intersections.addAll(result);
 		}
 		return intersections;

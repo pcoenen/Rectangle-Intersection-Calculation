@@ -8,7 +8,7 @@ public abstract class Algorithm {
 		setRechthoeken(rechthoeken);
 	}
 	
-	public abstract ArrayList<double[]> run();
+	public abstract HashSet<Coordinate> run();
 	
 	
 	protected HashSet<Rectangle> getRechthoeken() {

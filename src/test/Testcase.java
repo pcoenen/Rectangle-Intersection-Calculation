@@ -19,6 +19,7 @@ import main.Algorithm;
 import main.Algorithm1;
 import main.Algorithm2;
 import main.Algorithm3;
+import main.Coordinate;
 import main.Rectangle;
 
 public class Testcase {
@@ -29,15 +30,18 @@ public class Testcase {
 	public void algo1AlwaysSameOutput() throws IOException {
 		HashSet<Rectangle> rechthoeken = getInputRectangles();
 		Algorithm algoritme1 = new Algorithm1(rechthoeken);
-		ArrayList<double[]> uitvoer1 = algoritme1.run();
-		ArrayList<double[]> uitvoer2 = algoritme1.run();
-		uitvoer1.sort(new doubleComparator());
-		uitvoer2.sort(new doubleComparator());
-		assertEquals("Algoritme 1 geeft een uitvoer met twee keer een verschillende lengte"
-				, uitvoer1.size(), uitvoer2.size());
-		for(int i = 0; i < uitvoer1.size(); i++){
-			assertFalse("Algoritme 1 geeft verschillende uitvoer.", !Arrays.equals(uitvoer1.get(i), uitvoer2.get(i)));
-		}
+//		ArrayList<double[]> uitvoer1 = algoritme1.run();
+//		ArrayList<double[]> uitvoer2 = algoritme1.run();
+//		uitvoer1.sort(new doubleComparator());
+//		uitvoer2.sort(new doubleComparator());
+//		assertEquals("Algoritme 1 geeft een uitvoer met twee keer een verschillende lengte"
+//				, uitvoer1.size(), uitvoer2.size());
+//		for(int i = 0; i < uitvoer1.size(); i++){
+//			assertFalse("Algoritme 1 geeft verschillende uitvoer.", !Arrays.equals(uitvoer1.get(i), uitvoer2.get(i)));
+//		}
+		HashSet<Coordinate> uitvoer1 = algoritme1.run();
+		HashSet<Coordinate> uitvoer2 = algoritme1.run();
+		assertTrue("Algoritme 1 geeft verschillende uitvoer.", uitvoer1.equals(uitvoer2));
 	}
 	
 	@Test

@@ -64,7 +64,9 @@ public class Main {
 	    int i = 0;
 	    while (i < n && (text = reader.readLine()) != null) {
 	         array = text.split(" ");
-	         rechthoeken.add(new Rectangle( Double.parseDouble(array[0]), Double.parseDouble(array[1]), Double.parseDouble(array[2]), Double.parseDouble(array[3])));	
+	         Coordinate lo = new Coordinate(Double.parseDouble(array[0]), Double.parseDouble(array[1]));
+	         Coordinate rb = new Coordinate(Double.parseDouble(array[2]), Double.parseDouble(array[3]));
+	         rechthoeken.add(new Rectangle(lo, rb));	
 	         i++;
 	    }
 	    reader.close();
@@ -88,7 +90,7 @@ public class Main {
         }
         
         if(algorithm != null){	    
-	        ArrayList<double[]> intersections = new ArrayList<>();
+	        HashSet<Coordinate> intersections = new HashSet<>();
 	        long start_time = System.nanoTime();
 		    intersections = algorithm.run();
 	        long end_time = System.nanoTime();
@@ -137,7 +139,7 @@ public class Main {
 		return config;
 	}
 	
-	private static void writeOutput(ArrayList<double[]> intersections, double time, String outputPath) throws IOException {
+	private static void writeOutput(HashSet<Coordinate> intersections, double time, String outputPath) throws IOException {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(outputPath, "UTF-8");
@@ -147,8 +149,8 @@ public class Main {
 			writer = new PrintWriter(outputPath, "UTF-8");
 		}
 		
-		for(double[] intersec : intersections){
-			writer.println(intersec[0]+" "+intersec[1]);
+		for(Coordinate intersec : intersections){
+			writer.println(intersec.toString());
 		}
 		writer.println();
 		writer.println(time);

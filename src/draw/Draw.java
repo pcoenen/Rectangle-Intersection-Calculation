@@ -8,17 +8,18 @@ import java.util.HashSet;
 
 import javax.swing.JPanel;
 
+import main.Coordinate;
 import main.Rectangle;
 
 @SuppressWarnings("serial")
 public class Draw extends JPanel {
 	
-	public Draw(HashSet<Rectangle> rechthoeken, ArrayList<double[]> punten){
+	public Draw(HashSet<Rectangle> rechthoeken, HashSet<Coordinate> punten){
 		setRechthoeken(rechthoeken);
 		setPunten(punten);
 	}
 	
-	private ArrayList<double[]> punten;
+	private HashSet<Coordinate> punten;
 	
 	private HashSet<Rectangle> rechthoeken;
 
@@ -32,17 +33,17 @@ public class Draw extends JPanel {
 			g2d.drawRect(coordinaten[0], coordinaten[1], coordinaten[2], coordinaten[3]);
 		}
 		g2d.setColor(Color.RED);
-		ArrayList<double[]> punten = getPunten();
-		for(double[] punt: punten){
+		HashSet<Coordinate> punten = getPunten();
+		for(Coordinate punt: punten){
 			int[] coordinatenSnijpunten = getCoordinates(punt);
 			g2d.fillRect(coordinatenSnijpunten[0], coordinatenSnijpunten[1], coordinatenSnijpunten[2], coordinatenSnijpunten[3]);
 		}
 	}
 	
-	private int[] getCoordinates(double[] punt){
+	private int[] getCoordinates(Coordinate punt){
 		int[] coordinaten = new int[4];
-		coordinaten[0] = pasSchaalaan(punt[0])-3;
-		coordinaten[1] = pasSchaalaan(punt[1])-3;
+		coordinaten[0] = pasSchaalaan(punt.getX())-3;
+		coordinaten[1] = pasSchaalaan(punt.getY())-3;
 		coordinaten[2] = 6;
 		coordinaten[3] = 6;		
 		return coordinaten;
@@ -50,10 +51,10 @@ public class Draw extends JPanel {
 	
 	private int[] getCoordinates(Rectangle rechthoek){
 		int[] coordinaten = new int[4];
-		coordinaten[0] = pasSchaalaan(rechthoek.getLox());
-		coordinaten[1] = pasSchaalaan(rechthoek.getLoy());
-		coordinaten[2] = pasSchaalaan(rechthoek.getRbx()) - pasSchaalaan(rechthoek.getLox());
-		coordinaten[3] = pasSchaalaan(rechthoek.getRby()) - pasSchaalaan(rechthoek.getLoy());		
+		coordinaten[0] = pasSchaalaan(rechthoek.getLo().getX());
+		coordinaten[1] = pasSchaalaan(rechthoek.getLo().getY());
+		coordinaten[2] = pasSchaalaan(rechthoek.getRb().getX()) - pasSchaalaan(rechthoek.getLo().getX());
+		coordinaten[3] = pasSchaalaan(rechthoek.getRb().getY()) - pasSchaalaan(rechthoek.getLo().getY());		
 		return coordinaten;
 		
 		
@@ -63,11 +64,11 @@ public class Draw extends JPanel {
 		return (int) (punt*850);
 	}
 
-	public ArrayList<double[]> getPunten() {
+	public HashSet<Coordinate> getPunten() {
 		return punten;
 	}
 
-	public void setPunten(ArrayList<double[]> punten) {
+	public void setPunten(HashSet<Coordinate> punten) {
 		this.punten = punten;
 	}
 

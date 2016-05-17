@@ -16,13 +16,16 @@ import main.Algorithm;
 import main.Algorithm1;
 import main.Algorithm2;
 import main.Algorithm3;
+import main.Coordinate;
 import main.Rectangle;
 public class VeelTesten {
 	
 	public static void main(String[] args) throws IOException{
 		HashSet<Rectangle> rechthoeken;
+		System.out.println("Begonnen met testen.");
+		System.out.println("Test 1");
 		for(int i = 1; i <= 50000000; i++){
-			if(i%10000 == 0){
+			if(i%100000 == 0){
 				System.out.println("Test " + i);
 			}
 			new Input_generator(10, 2, 1,"invoerrechthoeken.txt");
@@ -30,9 +33,10 @@ public class VeelTesten {
 			Algorithm algoritme1 = new Algorithm1(rechthoeken);
 			Algorithm algoritme2 = new Algorithm2(rechthoeken);
 			Algorithm algoritme3 = new Algorithm3(rechthoeken);
-			ArrayList<double[]> uitvoer1 = algoritme1.run();
-			ArrayList<double[]> uitvoer2 = algoritme2.run();
-			ArrayList<double[]> uitvoer3 = algoritme3.run();
+			HashSet<Coordinate> uitvoer1 = algoritme1.run();
+			HashSet<Coordinate> uitvoer2 = algoritme2.run();
+			HashSet<Coordinate> uitvoer3 = algoritme3.run();
+/*
 			uitvoer1.sort(new doubleComparator());
 			uitvoer2.sort(new doubleComparator());
 			uitvoer3.sort(new doubleComparator());
@@ -65,21 +69,30 @@ public class VeelTesten {
 					return;
 				}
 			}
+*/
+			if(! uitvoer1.equals(uitvoer2)) {
+				System.err.println("Output één en twee verschillen");
+				return;
+			}
+			if(! uitvoer2.equals(uitvoer3)) {
+				System.err.println("Output twee en drie verschillen");
+				return;
+			}
 		}
 	}
 	
-	private static void dubbleFilter(ArrayList<double[]> uitvoer){
-		ArrayList<Integer> buitengooien = new ArrayList<>();
-		Comparator<double[]> comp = new doubleComparator();
-		for(int i = 1; i < uitvoer.size(); i++){
-			if(comp.compare(uitvoer.get(i-1), uitvoer.get(i)) == 0){
-				buitengooien.add(i-1);
-			}
-		}
-		for(int i=buitengooien.size()-1; i >= 0; i--){
-			uitvoer.remove((int) buitengooien.get(i));
-		}
-	}
+//	private static void dubbleFilter(ArrayList<double[]> uitvoer){
+//		ArrayList<Integer> buitengooien = new ArrayList<>();
+//		Comparator<double[]> comp = new doubleComparator();
+//		for(int i = 1; i < uitvoer.size(); i++){
+//			if(comp.compare(uitvoer.get(i-1), uitvoer.get(i)) == 0){
+//				buitengooien.add(i-1);
+//			}
+//		}
+//		for(int i=buitengooien.size()-1; i >= 0; i--){
+//			uitvoer.remove((int) buitengooien.get(i));
+//		}
+//	}
 	
 	private static HashSet<Rectangle> getInputRectangles() throws IOException{
 		String path = "invoerrechthoeken.txt";
@@ -101,7 +114,9 @@ public class VeelTesten {
 	    int i = 0;
 	    while (i < n && (text = reader.readLine()) != null) {
 	         array = text.split(" ");
-	         rechthoeken.add(new Rectangle( Double.parseDouble(array[0]), Double.parseDouble(array[1]), Double.parseDouble(array[2]), Double.parseDouble(array[3])));	
+	         Coordinate lo = new Coordinate(Double.parseDouble(array[0]), Double.parseDouble(array[1]));
+	         Coordinate rb = new Coordinate(Double.parseDouble(array[2]), Double.parseDouble(array[3]));
+	         rechthoeken.add(new Rectangle(lo, rb));
 	         i++;
 	    }
 	    reader.close();

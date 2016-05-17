@@ -12,12 +12,13 @@ public class Algorithm3 extends Algorithm {
 		super(rechthoeken);
 	}
 
-	public ArrayList<double[]> run(){
-		HashMap<Integer, double[]> intersections = new HashMap<>();
+	public HashSet<Coordinate> run(){
+		// HashMap<Integer, double[]> intersections = new HashMap<>();
+		HashSet<Coordinate> intersections = new HashSet<>();
 		// Alles toevoegen aan priority queue
 		PriorityQueue<StructureForPQ> queue = new PriorityQueue<>(new StructPQComparator());
 		for(Rectangle rechthoek : getRechthoeken()){
-			StructureForPQ struct = new StructureForPQ(rechthoek, 0, rechthoek.getLox());
+			StructureForPQ struct = new StructureForPQ(rechthoek, 0, rechthoek.getLo().getX());
 			queue.add(struct);			
 		}
 		//Start algorimte
@@ -28,34 +29,36 @@ public class Algorithm3 extends Algorithm {
 			//Als de rechthoek zich nog niet actief is
 			if(struct.getStatus() == 0){
 				//Zet de eindwaarde van de rechthoek in de queue
-				queue.add(new StructureForPQ(struct.getRechthoek(), 1, struct.getRechthoek().getRbx()));
+				queue.add(new StructureForPQ(struct.getRechthoek(), 1, struct.getRechthoek().getRb().getX()));
 				//Vergelijk alle rechthoeken die actief zijn
-				for(double[] intersection : check(struct.getRechthoek(), activeDown, activeUp)){
-					intersections.put((Integer)Arrays.hashCode(intersection), intersection);
+				for(Coordinate intersection : check(struct.getRechthoek(), activeDown, activeUp)){
+					//intersections.put((Integer)Arrays.hashCode(intersection), intersection);
+					intersections.add(intersection);
 				}
 				//zet hem in de actieve lijst
-				activeUp.put(struct.getRechthoek().getLoy(), struct.getRechthoek());
-				activeDown.put(struct.getRechthoek().getRby(), struct.getRechthoek());
+				activeUp.put(struct.getRechthoek().getLo().getY(), struct.getRechthoek());
+				activeDown.put(struct.getRechthoek().getRb().getY(), struct.getRechthoek());
 			//Als de rechthoek wel al actief is
 			} else if(struct.getStatus() == 1){
 				//Haal rechthoek uit actieve lijst
-				activeUp.delete(struct.getRechthoek().getLoy());
-				activeDown.delete(struct.getRechthoek().getRby());
-				for(double[] intersection : check(struct.getRechthoek(), activeDown, activeUp)){
-					intersections.put((Integer)Arrays.hashCode(intersection), intersection);
+				activeUp.delete(struct.getRechthoek().getLo().getY());
+				activeDown.delete(struct.getRechthoek().getRb().getY());
+				for(Coordinate intersection : check(struct.getRechthoek(), activeDown, activeUp)){
+					//intersections.put((Integer)Arrays.hashCode(intersection), intersection);
+					intersections.add(intersection);
 				}
 			}
 		}
-		return new ArrayList<double[]>(intersections.values());
+		return intersections;
 	}	
 	
-	ArrayList<double[]> check(Rectangle rect1, RedBlackBST<Double, Rectangle> activeDown, RedBlackBST<Double, Rectangle> activeUp){
-		ArrayList<double[]> intersections = new ArrayList<>();
-		double checkValue = rect1.getLoy();
+	HashSet<Coordinate> check(Rectangle rect1, RedBlackBST<Double, Rectangle> activeDown, RedBlackBST<Double, Rectangle> activeUp){
+		HashSet<Coordinate> intersections = new HashSet<>();
+		double checkValue = rect1.getLo().getY();
 		boolean hasIntersection = true;
 		double key;
 		Rectangle rect2 = null;
-		ArrayList<double[]> result;
+		HashSet<Coordinate> result;
 		while(hasIntersection && !activeDown.isEmpty()){
 			try{
 				key = activeDown.ceiling(checkValue);
@@ -63,11 +66,11 @@ public class Algorithm3 extends Algorithm {
 				break;
 			}
 			if(rect2 != null){
-				activeDown.put(rect2.getRby(), rect2);
+				activeDown.put(rect2.getRb().getY(), rect2);
 			}
 			rect2 = activeDown.get(key);
 			result = rect1.getIntersectionPoints(rect2);
-			if(result.size() > 0){
+			if(!result.isEmpty()){
 				intersections.addAll(result);
 				activeDown.delete(key);
 				checkValue = key;
@@ -76,12 +79,12 @@ public class Algorithm3 extends Algorithm {
 			}
 		}
 		if(rect2 != null){
-			activeDown.put(rect2.getRby(), rect2);
+			activeDown.put(rect2.getRb().getY(), rect2);
 			rect2 = null;
 		}
 		//Voor bovenste
 		
-		checkValue = rect1.getLoy();
+		checkValue = rect1.getLo().getY();
 		hasIntersection = true;
 		while(hasIntersection && !activeUp.isEmpty()){
 			try{
@@ -90,7 +93,7 @@ public class Algorithm3 extends Algorithm {
 				break;
 			}
 			if(rect2 != null){
-				activeUp.put(rect2.getLoy(), rect2);
+				activeUp.put(rect2.getLo().getY(), rect2);
 			}
 			rect2 = activeUp.get(key);
 			result = rect1.getIntersectionPoints(rect2);
@@ -103,7 +106,7 @@ public class Algorithm3 extends Algorithm {
 			}
 		}
 		if(rect2 != null){
-			activeUp.put(rect2.getLoy(), rect2);
+			activeUp.put(rect2.getLo().getY(), rect2);
 		}		
 		return intersections;
 	}
