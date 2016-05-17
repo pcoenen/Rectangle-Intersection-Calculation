@@ -23,6 +23,11 @@ public class Main {
 			System.err.println("Incorrect arguments. For help, use -h or --help");
 			return;
 		}
+		double sideSize = config.getDouble("side");
+		if (sideSize > 1 || sideSize <= 0) {
+			System.err.println("Invalid maximum side size. Continuing with default maximum side size: 1");
+			sideSize = 1;
+		}
 		if (config.getBoolean("help")) {
 			System.out.println("Help page");
 			System.out.println();
@@ -32,7 +37,7 @@ public class Main {
 		
 		if (config.contains("random")) {
 			if (config.contains("algorithm")) {
-				new Input_generator(config.getInt("random"), config.getInt("algorithm"), config.getString("input"));
+				new Input_generator(config.getInt("random"), config.getInt("algorithm"), sideSize ,config.getString("input"));
 			} else {
 				System.err.println("Please specify an algorithm if you want to use random input.");
 				return;
@@ -76,7 +81,9 @@ public class Main {
         	case "3":
         		algorithm = new Algorithm3(rechthoeken);
         		break;
-            default: writeAlgoNotExists(config.getString("output"));
+            default: 
+            	writeAlgoNotExists(config.getString("output"));
+            	System.out.println("This algorithm is not implemented. Please choose a valid algorithm.");
             	break;
         }
         
@@ -122,6 +129,10 @@ public class Main {
 		algorithm.setHelp("The algorithm that must be used when a random input file is generated.");
 		jsap.registerParameter(algorithm);
 		
+		FlaggedOption side = new FlaggedOption("side") .setShortFlag('s') .setLongFlag("side") .setDefault("1") .setStringParser(JSAP.DOUBLE_PARSER);
+		side.setHelp("Specify the maximum size of the sides of the rectangles as a double value between 0 and 1.");
+		jsap.registerParameter(side);
+		
 		JSAPResult config = jsap.parse(args);
 		return config;
 	}
@@ -153,7 +164,7 @@ public class Main {
 			file.createNewFile();
 			writer = new PrintWriter(outputPath, "UTF-8");
 		}			
-		writer.println("Dit algortime werd niet geïmplementeerd");
+		writer.println("Dit algortime is niet geïmplementeerd");
 		writer.close();
 	}
 
