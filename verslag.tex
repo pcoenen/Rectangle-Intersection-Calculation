@@ -6,7 +6,12 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{fullpage}
 \renewcommand{\familydefault}{\sfdefault}
+
+\algblockdefx{ForEach}{EndForEach}[2]{\textbf{for each} #1 \textbf{in} #2 \textbf{do}}{\textbf{end for}}
 
 \author{Pieter-Jan Coenen \and Stijn Caerts}
 \title{Practicum Toepassingen van Meetkunde in de Informatica \\ Snijdende rechthoeken}
@@ -17,6 +22,23 @@
 	\tableofcontents
 	\newpage
 	\section{Beschrijving algoritmen}
+	\subsection{Algoritme 1}
+	\emph{Algoritme 1} is een brute-force algoritme. Alle verschillende paren van rechthoeken worden gecontroleerd op snijding. Om te vermijden dat we twee rechthoeken dubbel controleren op snijpunten, houden we een lijst bij van de rechthoeken waarvoor we snijpunten met alle andere rechthoeken al zijn nagegaan. In pseudocode ziet dat er uit als volgt.
+	\begin{algorithm}
+		\caption{}
+		\begin{algorithmic}[1]
+			\State intersections $\gets \varnothing $
+			\State checked $\gets \varnothing $
+			\ForEach {rect1} {rectangles}
+				\ForEach {rect2} {rectangles}
+					\If {rect1 $\neq$ rect2 \textit{and} rect2 $\notin$ checked}
+						\State intersections $ \gets $ intersections $ \cup $ calculateIntersections(rect1, rect2)
+					\EndIf
+				\EndForEach
+				\State checked $\gets$ checked $\cup$ rect1
+			\EndForEach
+		\end{algorithmic}
+	\end{algorithm}
 	\section{Experimenten en correctheid}
 	\section{Bespreking resultaten}
 	
