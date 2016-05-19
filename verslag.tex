@@ -22,6 +22,8 @@
 	\tableofcontents
 	\newpage
 	\section{Beschrijving algoritmen}
+	In onze algoritmen hebben we proberen rekening te houden met de meeste rand gevallen. Als twee zijden volledig of gedeeltelijk samenvallen dan geven we als intersectie punten voor deze zijden steeds het begin punt en het eind punt, van waar tot waar ze samen vallen.  Als twee rechthoeken volledig samenvallen dan geven we als intersectie punten de vier hoekpunten van de rechthoeken.\\ \\
+	Wanneer we het in de algoritme hebben over het "bereken van de snijpunten tussen twee rechthoeken" dan doen we dit steeds via de procedure vermeld in punt 2.2.1.
 	\subsection{Algoritme 1}
 	\emph{Algoritme 1} is een brute-force algoritme. Elke rechthoek wordt gecontroleerd met elke andere rechthoek voor snijding. Om te vermijden dat we twee rechthoeken dubbel controleren op snijpunten, houden we een hashset bij van de rechthoeken waarvoor we de snijpunten met alle andere rechthoeken al zijn nagegaan. We gebruiken een hashset omdat we dan in  $\mathcal{O}(1)$ tijd kunnen controleren of een bepaalde rechthoek al werd gecontroleerd op snijding met alle andere rechthoeken.\\ Hieronder het algoritme in pseudocode.
 	\begin{algorithm}[H]
