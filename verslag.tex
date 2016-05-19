@@ -95,7 +95,7 @@
 				\caption{\label{fig:convR}Grafiek voor het doubeling experiment met zijde die variëren tussen 0 en 1}
 				\end{figure}
 			\subsubsection{Doubeling experiment voor verschillende lengtes van de zijden}
-				OOk hier hebben we een doubeling experiment uitgevoerd.  We hebben hierbij de tijd in miliseconden gemeten die de drie algoritme nodig hebben om de snijpunten van de rechthoeken te vinden. We hebben dit experiment eerst gedaan voor zijdes met een maximale lengte van 0.01, dan voor zijdes met een maximale lengte van 0.1, vervolgens voor zijdes met een maximale lengte van 0.2 en tot slot voor zijdes met een maximale lengte van 0.5.\\ \\
+				Ook hier hebben we een doubeling experiment uitgevoerd.  We hebben hierbij de tijd in miliseconden gemeten die de drie algoritme nodig hebben om de snijpunten van de rechthoeken te vinden. We hebben dit experiment eerst gedaan voor zijdes met een maximale lengte van 0.01, dan voor zijdes met een maximale lengte van 0.1, vervolgens voor zijdes met een maximale lengte van 0.2 en tot slot voor zijdes met een maximale lengte van 0.5.\\ \\
 				We verkregen de volgende grafieken:
 				\begin{figure}[H]
 				\centering
@@ -117,6 +117,28 @@
 				\includegraphics[width=0.75\textwidth]{zijde05.JPG}
 				\caption{\label{fig:convR}Grafiek voor het doubeling experiment met zijdes die variëren tussen 0 en 0.5}
 				\end{figure}
+		\subsection{Correctheid}
+			\subsubsection{Algoritme 1}
+				Bij algoritme 1 vergelijken we elke rechthoek met elke andere rechthoek, zoals beschreven in vraag 1.  Alle rechthoeken worden dus met elkaar vergeleken voor snijpunten. Om te kijken of twee rechthoeken snijpunten hebben berekenen we eerst de overlappende rechthoek.  Als r1 en r2 twee rechthoeken zijn waarvan we de snijpunten willen vinden, dan bereken we de overlappende rechthoek (r3) met de volgende formule:
+					$$r3.Lox = max(r1.Lox, r2.Lox)$$
+					$$r3.Loy = max(r1.Loy, r2.Loy)$$
+					$$r3.Rbx = min(r1.Rbx, r2.Rby)$$
+					$$r3.Rby = min(r1.Rby, r2.Rby)$$
+			De punten waar r1 en r2 mogelijk kunnen snijden zijn beperkt tot de vier hoekpunten van r3. Een hoekpunt van r3 kan alleen een snijpunt van r1 en r2 zijn als een van de volgende twee voorwaarden geldt:
+				\begin{enumerate}
+					\item Als de x-coördinaat van dat r3 hoekpunt een x-coördinaat is van een hoekpunt van r1 en wanneer dat de y-coördinaat van dat r3 hoekpunt een y-coördinaat is van een hoekpunt van r2.
+					\item Als de x-coördinaat van dat r3 hoekpunt een x-coördinaat is van een hoekpunt van r2 en wanneer dat de y-coördinaat van dat r3 hoekpunt een y-coördinaat is van een hoekpunt van r1.
+				\end{enumerate}
+			Alle hoekpunten van r3 die aan deze voorwaarden voldoen zullen snijpunten zijn van de rechthoeken r1 en r2.  \\
+			Om deze theorie nog eens te bevestigen hebben we onze resultaten ook nog eens grafisch gecontroleerd. We hebben een 50 tal keer de intersectie punten berekend voor een twintig tal willekeurig genereerde rechthoeken en de resultaten vervolgens grafisch gecontroleerd. Daarnaast hebben we zelf ook enkele randgevallen (zoals rechthoeken waarvan de zijdes samen vallen) bedacht en hiervan de intersectie punten berekend en vervolgens grafisch gecontroleerd. \\
+			Aangezien dat onze theorie dus blijkt correct te zijn kunnen we dus veronderstellen dat algoritme 1 correct werkt.
+			\subsubsection{Algoritme 2 en 3}
+				Aangezien dat we er zeker van zijn dat algoritme 1 correct is hebben we dit ook gebruikt om de correctheid van algoritme 2 en 3 na te gaan.\\
+				We hebben de computer in totaal 50 miljoen keer 20 willekeurige rechthoeken laten genereren en de intersectie punten hiervan laten bereken door de drie algoritme. Zowel algoritme 2 als 3 gaven dezelfde resultaten als algoritme 1. \\
+				Daarnaast hebben we de computer ook een duizendtal keer 1500 willekeurige rechthoeken laten genereren en vervolgens de intersectie punten berekend met de drie algoritme. Ook voor deze test gaven de drie algoritme dezelfde resultaten.\\
+				 Aangezien al deze testen waren geslaagd, kunnen we er vanuit gaan dat algoritme 2 en 3 ook correct werken.
+	
+				
 			
 			
 	\section{Bespreking resultaten}
