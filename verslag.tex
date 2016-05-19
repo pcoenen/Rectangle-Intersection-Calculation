@@ -42,13 +42,48 @@
 	Aangezien we twee geneste lussen hebben, en we niet dubbel controleren voor eenzelfde paar rechthoeken. De functie \emph{calculateIntersections()} wordt daarom $ (n-1) + (n-2) + \dots + 2 + 1 = \frac{n(n-1)}{2} $ keer uitgevoerd en dus heeft \emph{Algoritme 1} een complexiteit van $\mathcal{O}(n^2)$.
 	
 	\subsection{Algoritme 2}
+	\emph{Algoritme 2} is een doorlooplijn-algoritme. Dit betekent dat we de rechthoeken gaan ordenen volgens x-coördinaat en vervolgens deze lijst met rechthoeken doorlopen. De doorlooplijn gaat volgens stijgende x-waarde en als de doorlooplijn een rechthoek snijdt, voegen we die rechthoek toe aan de lijst van actieve rechthoeken. Als de rechthoek niet langer gesneden wordt door de doorlooplijn, verwijderen we de rechthoek weer uit de lijst van actieve rechthoeken. Als we een nieuwe rechthoek tegenkomen, controleren we enkel of er snijding is tussen die rechthoek en de rechthoeken die op dat moment actief zijn. Dit zorgt er voor dat we meestal minder vaak moeten controleren of twee rechthoeken snijden. In de worst case moeten we bij dit algoritme echter ook voor alle andere rechthoeken controleren of er snijding optreedt. Dit is het geval als alle rechthoeken samen actief is.
 	\begin{algorithm}[H]
 		\caption{}
 		\begin{algorithmic}[1]
 			\State intersections $\gets \varnothing $
-			\State queue $\gets$ lijst van rechthoeken gesorteerd op x-coördinaat.
+			\State queue $\gets$ priority queue van rechthoeken gesorteerd op de x-coördinaat, initieel van het punt linksonder.
+			\State active $\gets \varnothing$
+			\While {queue is not empty}
+				\State rect1 = queue.poll()
+				\If {rect $\notin$ active}
+					\State voeg rect toe aan de queue, met de x-coordinaat van het punt rechtsboven als sorteringscriterium.
+					\State snijpunten $\gets$ snijpunten $\cup$ alle snijpunten van rect met alle andere rechthoeken die actief zijn
+					\State active $\gets$ active $\cup$ rect
+				\Else
+					\State active $\gets$ active $\backslash$ rect
+				\EndIf
+			\EndWhile
 		\end{algorithmic}
 	\end{algorithm}
+	
+	\subsection{Algoritme 3}
+	\emph{Algoritme 3} is gebaseerd op \emph{algoritme 2}, het werkt grotendeels op dezelfde manier. In plaats van op snijding te controleren met alle actieve rechthoeken, controleert \emph{algoritme 3} enkel op snijding met de rechthoek waarvan de onderste zijde het dichtst bij de bovenste zijde van de geselecteerde rechthoek ligt en de rechthoek waarvan de bovenste zijde het dichtst bij de onderste zijde van de geselecteerde rechthoek ligt. Indien er snijding optreedt, herhalen we deze operatie in de desbetreffende richting. Voor snel deze rechthoeken te vinden, maken we gebruik van een Red-Black Tree. In een Red-Black Tree kan je de \texttt{ceiling()} en \texttt{floor()} van een element berekenen in $\mathcal{O}(\log n)$ tijd.
+	
+		\begin{algorithm}[H]
+			\caption{}
+			\begin{algorithmic}[1]
+				\State intersections $\gets \varnothing $
+				\State queue $\gets$ priority queue van rechthoeken gesorteerd op de x-coördinaat van het punt linksonder.
+				\State active $\gets \varnothing$
+				\While {queue is not empty}
+				\State rect1 = queue.poll()
+				\If {rect $\notin$ active}
+				\State voeg rect toe aan de queue, met de x-coordinaat van het punt rechtsboven als sorteringscriterium.
+				\State snijpunten $\gets$ snijpunten $\cup$ alle snijpunten van rect met alle andere rechthoeken die actief zijn
+				\State active $\gets$ active $\cup$ rect
+				\Else
+				\State active $\gets$ active $\backslash$ rect
+				\EndIf
+				\EndWhile
+			\end{algorithmic}
+		\end{algorithm}
+	
 	\section{Experimenten en correctheid}
 		\subsection{Experimenten}
 		We hebben verschillende experimenten uitgevoerd om de complexiteit en werking van onze algoritme na te gaan. Eerste hebben we een doubeling experiment uitgevoerd waarbij de x- en y-coördinaten van de hoekpunten tussen 0 en 1 liggen.  Nadien hebben opnieuw verschillende doubeling experimenten uitgevoerd waarbij eerst de x- en y-coördinaten van de hoekpunten tussen 0 en 0,2 liggen, daarna tussen 0 en 0.5 en vervolgens laten we de waardes van de hoekpunten variëren tussen 0 en 0.75.
