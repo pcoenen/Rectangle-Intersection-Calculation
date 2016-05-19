@@ -7,8 +7,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage{float}
+\usepackage{algpseudocode}\usepackage{float}
 \usepackage{fullpage}
 \renewcommand{\familydefault}{\sfdefault}
 
@@ -42,6 +41,14 @@
 	\end{algorithm}
 	Aangezien we twee geneste lussen hebben, en we niet dubbel controleren voor eenzelfde paar rechthoeken. De functie \emph{calculateIntersections()} wordt daarom $ (n-1) + (n-2) + \dots + 2 + 1 = \frac{n(n-1)}{2} $ keer uitgevoerd en dus heeft \emph{Algoritme 1} een complexiteit van $\mathcal{O}(n^2)$.
 	
+	\subsection{Algoritme 2}
+	\begin{algorithm}[H]
+		\caption{}
+		\begin{algorithmic}[1]
+			\State intersections $\gets \varnothing $
+			
+		\end{algorithmic}
+	\end{algorithm}
 	\section{Experimenten en correctheid}
 	\section{Bespreking resultaten}
 	
