@@ -112,7 +112,7 @@ public class DoublingRatioExperiment {
 		}
 		
 		//Read file
-	    String algoritme_nummer = reader.readLine();
+	    reader.readLine();
 		int n = Integer.parseInt(reader.readLine());
 	    //Lees de input rechthoeken
 	    String text = null;

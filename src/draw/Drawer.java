@@ -1,6 +1,5 @@
 package draw;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.swing.JFrame;

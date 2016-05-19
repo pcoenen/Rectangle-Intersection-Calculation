@@ -3,7 +3,6 @@ package draw;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.swing.JPanel;
@@ -54,7 +53,6 @@ public class Draw extends JPanel {
 		coordinaten[0] = pasSchaalaan(rechthoek.getLo().getX());
 		coordinaten[1] = pasSchaalaan(rechthoek.getLo().getY());
 		coordinaten[2] = pasSchaalaan(rechthoek.getRb().getX()) - pasSchaalaan(rechthoek.getLo().getX());
-		coordinaten[3] = pasSchaalaan(rechthoek.getRb().getY()) - pasSchaalaan(rechthoek.getLo().getY());		
 		return coordinaten;
 		
 		
