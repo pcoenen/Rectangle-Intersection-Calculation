@@ -7,14 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashSet;
 
 import org.junit.Test;
 
-import generate_input.Input_generator;
 import main.Algorithm;
 import main.Algorithm1;
 import main.Algorithm2;
@@ -23,8 +19,6 @@ import main.Coordinate;
 import main.Rectangle;
 
 public class Testcase {
-	
-	private static final int ArrayList = 0;
 
 	@Test
 	public void algo1AlwaysSameOutput() throws IOException {

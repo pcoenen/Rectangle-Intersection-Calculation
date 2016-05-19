@@ -1,5 +1,4 @@
 package main;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
@@ -41,7 +40,6 @@ public class Algorithm2 extends Algorithm {
 	HashSet<Coordinate> check(Rectangle rect1, HashSet<Rectangle> actieveRect){
 		HashSet<Coordinate> intersections = new HashSet<>();
 		for(Rectangle rect2 : actieveRect){
-			// TODO: controleer of de snijpunten tussen rect2 en rect1 al berekend zijn, anders hebben we alle snijpunten dubbel
 			HashSet<Coordinate> result = rect1.getIntersectionPoints(rect2);
 			intersections.addAll(result);
 		}
