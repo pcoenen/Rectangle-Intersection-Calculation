@@ -87,7 +87,7 @@
 	
 	\section{Experimenten en correctheid}
 		\subsection{Experimenten}
-		We hebben verschillende experimenten uitgevoerd om de complexiteit van onze algoritmes na te gaan. Eerste hebben we een doubeling experiment uitgevoerd waarbij de x- en y-coördinaten van de hoekpunten tussen 0 en 1 liggen.  Nadien hebben opnieuw verschillende doubeling experimenten uitgevoerd waarbij de lengte van de zijdes van de rechthoeken tussen  respectievelijk 0 en 0.01, 0.01, 0.2 en 0.5 lagen.
+		We hebben verschillende experimenten uitgevoerd om de complexiteit van onze algoritmes na te gaan. Eerste hebben we een doubeling experiment uitgevoerd waarbij de x- en y-coördinaten van de hoekpunten tussen 0 en 1 liggen.  Nadien hebben opnieuw verschillende doubeling experimenten uitgevoerd waarbij de lengte van de zijdes van de rechthoeken tussen  respectievelijk 0 en 0.01, 0.01, 0.2 en 0.5 lagen.\\ We hebben een doubeling experiment gebruikt om dat dit volgens ons de ideale methode is om analyseren hoe de algoritmes zich gedragen naarmate de invoer groter wordt. De interpretatie van de resultaten bespreken we later in puntje 3.
 			\subsubsection{Doubeling experiment met hoekpunten tussen 0 en 1}
 				We hebben een doubeling experiment uitgevoerd waarbij het aantal rechthoeken laten toenemen vanaf 1 tot 8192.  We hebben hierbij de tijd in miliseconden gemeten die de drie algoritme nodig hebben om de snijpunten van de rechthoeken te vinden.
 				\begin{figure}[H]
@@ -137,11 +137,14 @@
 				Aangezien dat we er zeker van zijn dat algoritme 1 correct is hebben we dit ook gebruikt om de correctheid van algoritme 2 en 3 na te gaan.\\
 				We hebben de computer in totaal 50 miljoen keer 20 willekeurige rechthoeken laten genereren en de intersectie punten hiervan laten bereken door de drie algoritme. Zowel algoritme 2 als 3 gaven dezelfde resultaten als algoritme 1. \\
 				Daarnaast hebben we de computer ook een duizendtal keer 1500 willekeurige rechthoeken laten genereren en vervolgens de intersectie punten berekend met de drie algoritme. Ook voor deze test gaven de drie algoritme dezelfde resultaten.\\
-				 Aangezien al deze testen waren geslaagd, kunnen we er vanuit gaan dat algoritme 2 en 3 ook correct werken.
-	
-				
-			
-			
+				 Aangezien al deze testen waren geslaagd, kunnen we er vanuit gaan dat algoritme 2 en 3 ook correct werken.		
 	\section{Bespreking resultaten}
+		\subsection{Doubeling experiment met hoekpunten tussen 0 en 1}
+			Wanneer we kijken naar de grafiek in figuur 1 dan zien we dat de tijd die de algoritmen nodig hebben steeds zeer snel stijgt. \\
+			Voor het eerste algoritme zien we duidelijk dat dit kwadratisch blijkt te zijn, zoals we eerder hadden voorspeld.\\
+			Voor het tweede algoritme lijkt ook bijna kwadratisch te zijn, maar toch iets sneller dan het eerste algoritme.  Dit komt omdat er zeer veel rechthoeken zijn waarvan de zijdes een lengte kunnen hebben die maximaal gelijk is aan de maximale x-coördinaat.  Met andere woorden er kunnen dus rechthoeken zijn die gedurende de volledige tijd dat het algoritme wordt uitgevoerd zich in de actieve lijst bevinden.  In het gemiddeld geval zal elke rechthoek dus een lengte hebben van 0.5.  Als we aannemen de rechthoeken uniform verspreid zijn, wil dit dus zeggen dat steeds de helft van het totale aantal rechthoeken zich in de actieve lijst bevindt. Hierdoor presteert algoritme 2 zeer slecht, bijna worst-case, omdat elke rechthoek wordt vergeleken met de helft van het totale aantal rechthoeken, dit is dus inderdaad geen geweldige verbetering t.o.v. algoritme 1.\\
+			Algoritme 3 presteert nog het slechtst.  We hadden al eerder aangehaald dat het tweede algoritme in deze omstandig heden zeer slecht preseert, omdat er teveel elementen in de actieve lijst zitten. Algoritme 3 is bijna hetzelfde als algoritme 2  op het engie verschil na dat er gebruik wordt gemaakt van een Red-Black Tree voor het bijhouden van de actieve lijst.  Aangezien dat elke rechthoek twee keer wordt toegevoegd aan deze Red-Black Tree en dat het toevoegen van een element aan deze Red-Black Tree $\mathcal{O}(\log n)$ tijd kost, t.o.v. constante tijd voor het toevoegen van een element aan de een Array-list, is het dus niet moeilijk om in te zien dat dit algoritme in dit geval inderdaad slechter presteert.
+		\subsection{Doubeling experiment voor verschillende lengtes van de zijden}
+			
 	
 \end{document}
