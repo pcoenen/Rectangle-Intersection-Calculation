@@ -2,6 +2,9 @@
 invoerrechthoeken.txt
 uitvoerrechthoeken.txt
 TMI.jar
+verslag.pdf
+*.jar
+*.txt
 
 
 ### LaTeX
