@@ -16,10 +16,14 @@ public class Algorithm1 extends Algorithm {
 				if(rect1 != rect2 && !checkedRectangles.contains(rect2)){
 					HashSet<Coordinate> result = rect1.getIntersectionPoints(rect2);
 					intersections.addAll(result);
+					checks++;
 				}
 			}
 			checkedRectangles.add(rect1);
 		}
+		System.out.println("Algoritme 1 " + checks + " checks");
 		return intersections;
 	}
+	
+	private long checks;
 }
