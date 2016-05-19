@@ -30,18 +30,11 @@ public class Testcase {
 	public void algo1AlwaysSameOutput() throws IOException {
 		HashSet<Rectangle> rechthoeken = getInputRectangles();
 		Algorithm algoritme1 = new Algorithm1(rechthoeken);
-//		HashSet<Coordinate> uitvoer1 = algoritme1.run();
-//		HashSet<Coordinate> uitvoer2 = algoritme1.run();
-//		uitvoer1.sort(new doubleComparator());
-//		uitvoer2.sort(new doubleComparator());
-//		assertEquals("Algoritme 1 geeft een uitvoer met twee keer een verschillende lengte"
-//				, uitvoer1.size(), uitvoer2.size());
-//		for(int i = 0; i < uitvoer1.size(); i++){
-//			assertFalse("Algoritme 1 geeft verschillende uitvoer.", !Arrays.equals(uitvoer1.get(i), uitvoer2.get(i)));
-//		}
 		HashSet<Coordinate> uitvoer1 = algoritme1.run();
 		HashSet<Coordinate> uitvoer2 = algoritme1.run();
-		assertTrue("Algoritme 1 geeft verschillende uitvoer.", uitvoer1.equals(uitvoer2));
+		assertEquals("Algoritme 1 geeft een uitvoer met twee keer een verschillende lengte"
+				, uitvoer1.size(), uitvoer2.size());
+		assertFalse("Algoritme 1 geeft verschillende uitvoer.", !uitvoer1.equals(uitvoer2));
 	}
 
 	
@@ -53,11 +46,7 @@ public class Testcase {
 		HashSet<Coordinate> uitvoer2 = algoritme2.run();
 		assertEquals("Algoritme 2 geeft een uitvoer met twee keer een verschillende lengte"
 				, uitvoer1.size(), uitvoer2.size());
-		for(Coordinate coordinate : uitvoer1){
-			if(!uitvoer2.contains(coordinate)){
-				assertFalse("Algoritme 2 geeft verschillende uitvoer.", true);
-			}
-		}
+		assertFalse("Algoritme 2 geeft verschillende uitvoer.", !uitvoer1.equals(uitvoer2));
 	}
 	
 	@Test
@@ -69,11 +58,7 @@ public class Testcase {
 		HashSet<Coordinate> uitvoer2 = algoritme32.run();
 		assertEquals("Algoritme 3 geeft een uitvoer met twee keer een verschillende lengte"
 				, uitvoer1.size(), uitvoer2.size());
-		for(Coordinate coordinate : uitvoer1){
-			if(!uitvoer2.contains(coordinate)){
-				assertFalse("Algoritme 3 geeft verschillende uitvoer.", true);
-			}
-		}
+		assertFalse("Algoritme 3 geeft verschillende uitvoer.", !uitvoer1.equals(uitvoer2));
 	}
 
 	@Test
@@ -87,18 +72,10 @@ public class Testcase {
 		HashSet<Coordinate> uitvoer3 = algoritme3.run();
 		assertEquals("Algo 1 & 2 hebben een uitvoer met twee keer een verschillende lengte"
 				, uitvoer1.size(), uitvoer2.size());
-		for(Coordinate coordinate : uitvoer1){
-			if(!uitvoer2.contains(coordinate)){
-				assertFalse("Algoritme 1 en 2 hebben een verschillende uitvoer.", true);
-			}
-		}
+		assertFalse("Algoritme 1 en 2 hebben een verschillende uitvoer.", !uitvoer1.equals(uitvoer2));
 		assertEquals("Algo 2 & 3 hebben een uitvoer met twee keer een verschillende lengte"
 				, uitvoer2.size(), uitvoer3.size());
-		for(Coordinate coordinate : uitvoer2){
-			if(!uitvoer3.contains(coordinate)){
-				assertFalse("Algoritme 2 en 3 hebben een verschillende uitvoer.", true);
-			}
-		}
+		assertFalse("Algoritme 2 en 3 hebben een verschillende uitvoer.", ! uitvoer2.equals(uitvoer3));
 	}
 
 	
@@ -113,7 +90,7 @@ public class Testcase {
 		}
 		
 		//Read file
-	    String algoritme_nummer = reader.readLine();
+	    reader.readLine();
 		int n = Integer.parseInt(reader.readLine());
 	    //Lees de input rechthoeken
 	    String text = null;
@@ -130,18 +107,4 @@ public class Testcase {
 	    reader.close();
 	    return rechthoeken;
 	}
-	
-	class doubleComparator implements Comparator<double[]>
-	{
-	    public int compare(double[] d1, double[] d2)
-	    {
-	    	if(d1[0] < d2[0]) return -1;
-	    	if(d1[0] > d2[0]) return 1;
-	    	if(d1[1] < d2[1]) return -1;
-	    	if(d1[1] > d2[1]) return 1;
-	        return 0;
-	        
-	    }
-	}
-
 }

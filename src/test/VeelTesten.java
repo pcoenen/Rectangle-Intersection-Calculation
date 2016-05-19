@@ -5,12 +5,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 
-import draw.Drawer;
 import generate_input.Input_generator;
 import main.Algorithm;
 import main.Algorithm1;
@@ -90,17 +87,4 @@ public class VeelTesten {
 	    return rechthoeken;
 	}
 
-}
-
-class doubleComparator implements Comparator<double[]>
-{
-    public int compare(double[] d1, double[] d2)
-    {
-    	if(d1[0] < d2[0]) return -1;
-    	if(d1[0] > d2[0]) return 1;
-    	if(d1[1] < d2[1]) return -1;
-    	if(d1[1] > d2[1]) return 1;
-        return 0;
-        
-    }
 }
