@@ -35,20 +35,15 @@ public class Algorithm2 extends Algorithm {
 				active.remove(struct.getRechthoek());
 			}
 		}
-		System.out.println("Algoritme 2 " + checks + "checks");
 		return intersections;
 	}	
 	
 	HashSet<Coordinate> check(Rectangle rect1, HashSet<Rectangle> actieveRect){
 		HashSet<Coordinate> intersections = new HashSet<>();
 		for(Rectangle rect2 : actieveRect){
-			// TODO: controleer of de snijpunten tussen rect2 en rect1 al berekend zijn, anders hebben we alle snijpunten dubbel
 			HashSet<Coordinate> result = rect1.getIntersectionPoints(rect2);
-			checks++;
 			intersections.addAll(result);
 		}
 		return intersections;
 	}
-	
-	private long checks;
 }

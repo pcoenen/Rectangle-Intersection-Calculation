@@ -47,7 +47,6 @@ public class Algorithm3 extends Algorithm {
 				}
 			}
 		}
-		System.out.println("Algoritme 3 " + checks + "checks");
 		return intersections;
 	}	
 	
@@ -68,7 +67,6 @@ public class Algorithm3 extends Algorithm {
 			}
 			rect2 = activeDown.get(key);
 			result = rect1.getIntersectionPoints(rect2);
-			checks++;
 			if(!result.isEmpty()){
 				intersections.addAll(result);
 				activeDown.delete(key);
@@ -95,7 +93,6 @@ public class Algorithm3 extends Algorithm {
 			}
 			rect2 = activeUp.get(key);
 			result = rect1.getIntersectionPoints(rect2);
-			checks++;
 			if(result.size() > 0){
 				intersections.addAll(result);
 				activeUp.delete(key);
@@ -109,6 +106,4 @@ public class Algorithm3 extends Algorithm {
 		}		
 		return intersections;
 	}
-	
-	private long checks;
 }

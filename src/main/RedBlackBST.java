@@ -32,8 +32,6 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
 /**
  *  The <tt>BST</tt> class represents an ordered symbol table of generic
  *  key-value pairs.
