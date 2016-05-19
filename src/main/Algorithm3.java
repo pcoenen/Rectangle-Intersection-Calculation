@@ -35,8 +35,8 @@ public class Algorithm3 extends Algorithm {
 			//Als de rechthoek wel al actief is
 			} else if(struct.getStatus() == 1){
 				//Haal rechthoek uit actieve lijst
-				active.remove(struct.getRechthoek().getLo().getY());
-				active.remove(struct.getRechthoek().getRb().getY());
+				active.remove(struct.getRechthoek().getLo().getY(), struct.getRechthoek());
+				active.remove(struct.getRechthoek().getRb().getY(), struct.getRechthoek());
 				intersections.addAll(check(struct.getRechthoek(), active));
 			}
 		}
