@@ -33,7 +33,7 @@ public class VeelTesten {
 			if(i%100000 == 0){
 				System.out.println("Test " + i);
 			}
-			new Input_generator(10, 2, 1,"invoerrechthoeken.txt");
+			new Input_generator(50, 3, 1,"invoerrechthoeken.txt");
 			rechthoeken = getInputRectangles();
 			Algorithm algoritme1 = new Algorithm1(rechthoeken);
 			Algorithm algoritme2 = new Algorithm2(rechthoeken);

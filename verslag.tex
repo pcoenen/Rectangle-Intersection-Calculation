@@ -50,6 +50,40 @@
 		\end{algorithmic}
 	\end{algorithm}
 	\section{Experimenten en correctheid}
+		\subsection{Experimenten}
+		We hebben verschillende experimenten uitgevoerd om de complexiteit en werking van onze algoritme na te gaan. Eerste hebben we een doubeling experiment uitgevoerd waarbij de x- en y-coördinaten van de hoekpunten tussen 0 en 1 liggen.  Nadien hebben opnieuw verschillende doubeling experimenten uitgevoerd waarbij eerst de x- en y-coördinaten van de hoekpunten tussen 0 en 0,2 liggen, daarna tussen 0 en 0.5 en vervolgens laten we de waardes van de hoekpunten variëren tussen 0 en 0.75.
+			\subsubsection{Doubeling experiment met hoekpunten tussen 0 en 1}
+				We hebben een doubeling experiment uitgevoerd waarbij het aantal rechthoeken laten toenemen vanaf 1 tot 8192.  We hebben hierbij de tijd in miliseconden gemeten die de drie algoritme nodig hebben om de snijpunten van de rechthoeken te vinden.
+				\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{zijde1.JPG}
+				\caption{\label{fig:convR}Grafiek voor het doubeling experiment met zijde die variëren tussen 0 en 1}
+				\end{figure}
+			\subsubsection{Doubeling experiment voor verschillende lengtes van de zijden}
+				OOk hier hebben we een doubeling experiment uitgevoerd.  We hebben hierbij de tijd in miliseconden gemeten die de drie algoritme nodig hebben om de snijpunten van de rechthoeken te vinden. We hebben dit experiment eerst gedaan voor zijdes met een maximale lengte van 0.01, dan voor zijdes met een maximale lengte van 0.1, vervolgens voor zijdes met een maximale lengte van 0.2 en tot slot voor zijdes met een maximale lengte van 0.5.\\ \\
+				We verkregen de volgende grafieken:
+				\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{zijde001.JPG}
+				\caption{\label{fig:convR}Grafiek voor het doubeling experiment met zijdes die variëren tussen 0 en 0.01}
+				\end{figure}
+				\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{zijde01.JPG}
+				\caption{\label{fig:convR}Grafiek voor het doubeling experiment met zijdes die variëren tussen 0 en 0.1}
+				\end{figure}
+				\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{zijde02.JPG}
+				\caption{\label{fig:convR}Grafiek voor het doubeling experiment met zijdes die variëren tussen 0 en 0.2}
+				\end{figure}
+				\begin{figure}[H]
+				\centering
+				\includegraphics[width=0.75\textwidth]{zijde05.JPG}
+				\caption{\label{fig:convR}Grafiek voor het doubeling experiment met zijdes die variëren tussen 0 en 0.5}
+				\end{figure}
+			
+			
 	\section{Bespreking resultaten}
 	
 \end{document}
