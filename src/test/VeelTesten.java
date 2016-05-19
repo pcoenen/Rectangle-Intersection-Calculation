@@ -24,11 +24,11 @@ public class VeelTesten {
 		HashSet<Rectangle> rechthoeken;
 		System.out.println("Begonnen met testen.");
 		System.out.println("Test 1");
-		for(int i = 1; i <= 50000000; i++){
+		for(int i = 1; i <= 2; i++){
 			if(i%100000 == 0){
 				System.out.println("Test " + i);
 			}
-			new Input_generator(10, 2, 1,"invoerrechthoeken.txt");
+			new Input_generator(1500, 2, 1,"invoerrechthoeken.txt");
 			rechthoeken = getInputRectangles();
 			Algorithm algoritme1 = new Algorithm1(rechthoeken);
 			Algorithm algoritme2 = new Algorithm2(rechthoeken);
@@ -36,40 +36,6 @@ public class VeelTesten {
 			HashSet<Coordinate> uitvoer1 = algoritme1.run();
 			HashSet<Coordinate> uitvoer2 = algoritme2.run();
 			HashSet<Coordinate> uitvoer3 = algoritme3.run();
-/*
-			uitvoer1.sort(new doubleComparator());
-			uitvoer2.sort(new doubleComparator());
-			uitvoer3.sort(new doubleComparator());
-			dubbleFilter(uitvoer3);
-			if(uitvoer1.size() != uitvoer2.size()){
-				//				new Drawer(rechthoeken, uitvoer1);
-//				new Drawer(rechthoeken, uitvoer2);
-				System.out.println("Lengte van output één en twee verschillen");
-				break;
-			}			
-			for(int j = 0; j < uitvoer1.size(); j++){
-				if(!Arrays.equals(uitvoer1.get(j), uitvoer2.get(j))){
-					//					new Drawer(rechthoeken, uitvoer1);
-//					new Drawer(rechthoeken, uitvoer2);
-					System.out.println("Output één en twee verschillen");
-					return;
-				}
-			}
-			if(uitvoer3.size() != uitvoer2.size()){
-				//				new Drawer(rechthoeken, uitvoer2);
-//				new Drawer(rechthoeken, uitvoer3);
-				System.out.println("Lengte van output twee en drie verschillen");
-				break;
-			}
-			for(int j = 0; j < uitvoer2.size(); j++){
-				if(!Arrays.equals(uitvoer3.get(j), uitvoer2.get(j))){
-					//					new Drawer(rechthoeken, uitvoer2);
-//					new Drawer(rechthoeken, uitvoer3);
-					System.out.println("Output twee en drie verschillen");
-					return;
-				}
-			}
-*/
 			if(! uitvoer1.equals(uitvoer2)) {
 				System.err.println("Output één en twee verschillen");
 				return;
@@ -79,6 +45,7 @@ public class VeelTesten {
 				return;
 			}
 		}
+		System.out.println("Testen succesvol beïndig");
 	}
 	
 //	private static void dubbleFilter(ArrayList<double[]> uitvoer){

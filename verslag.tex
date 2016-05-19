@@ -8,6 +8,7 @@
 \usepackage{hyperref}
 \usepackage{algorithm}
 \usepackage{algpseudocode}
+\usepackage{float}
 \usepackage{fullpage}
 \renewcommand{\familydefault}{\sfdefault}
 
@@ -23,8 +24,8 @@
 	\newpage
 	\section{Beschrijving algoritmen}
 	\subsection{Algoritme 1}
-	\emph{Algoritme 1} is een brute-force algoritme. Alle verschillende paren van rechthoeken worden gecontroleerd op snijding. Om te vermijden dat we twee rechthoeken dubbel controleren op snijpunten, houden we een lijst bij van de rechthoeken waarvoor we snijpunten met alle andere rechthoeken al zijn nagegaan. In pseudocode ziet dat er uit als volgt.
-	\begin{algorithm}
+	\emph{Algoritme 1} is een brute-force algoritme. Elke rechthoek wordt gecontroleerd met elke andere rechthoek voor snijding. Om te vermijden dat we twee rechthoeken dubbel controleren op snijpunten, houden we een lijst bij van de rechthoeken waarvoor we snijpunten met alle andere rechthoeken al zijn nagegaan. In pseudocode ziet dat er uit als volgt.
+	\begin{algorithm}[H]
 		\caption{}
 		\begin{algorithmic}[1]
 			\State intersections $\gets \varnothing $
@@ -39,7 +40,7 @@
 			\EndForEach
 		\end{algorithmic}
 	\end{algorithm}
-	Aangezien we twee geneste lussen hebben, en we niet dubbel controleren voor eenzelfde paar rechthoeken. De functie \emph{calculateIntersections()} wordt daarom $ (n-1) + (n-2) + \dots + 2 + 1 = \frac{n(n-1)}{2} $ keer uitgevoerd, en dus heeft \emph{Algoritme 1} een complexiteit van $\mathcal{O}(n^2)$.
+	Aangezien we twee geneste lussen hebben, en we niet dubbel controleren voor eenzelfde paar rechthoeken. De functie \emph{calculateIntersections()} wordt daarom $ (n-1) + (n-2) + \dots + 2 + 1 = \frac{n(n-1)}{2} $ keer uitgevoerd en dus heeft \emph{Algoritme 1} een complexiteit van $\mathcal{O}(n^2)$.
 	
 	\section{Experimenten en correctheid}
 	\section{Bespreking resultaten}
