@@ -13,7 +13,6 @@ import main.Algorithm;
 import main.Algorithm1;
 import main.Algorithm2;
 import main.Algorithm3;
-import main.Algorithm4;
 import main.Coordinate;
 import main.Rectangle;
 public class VeelTesten {
@@ -34,7 +33,7 @@ public class VeelTesten {
 			if(i%100000 == 0){
 				System.out.println("Test " + i);
 			}
-			new Input_generator(50, 3, 1,"invoerrechthoeken.txt");
+			new Input_generator(10, 3, 1,"invoerrechthoeken.txt");
 			rechthoeken = getInputRectangles();
 			Algorithm algoritme1 = new Algorithm1(rechthoeken);
 			Algorithm algoritme2 = new Algorithm2(rechthoeken);
@@ -66,8 +65,7 @@ public class VeelTesten {
 			reader = new BufferedReader(new FileReader(input));
 		} catch (FileNotFoundException e) {
 			System.err.println("Input file does not exists!");
-		}
-		
+		}		
 		//Read file
 	    reader.readLine();
 		int n = Integer.parseInt(reader.readLine());

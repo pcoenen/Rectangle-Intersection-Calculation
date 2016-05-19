@@ -15,7 +15,6 @@ import main.Algorithm;
 import main.Algorithm1;
 import main.Algorithm2;
 import main.Algorithm3;
-import main.Algorithm4;
 import main.Coordinate;
 import main.Rectangle;
 

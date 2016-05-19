@@ -82,9 +82,6 @@ public class Main {
         	case "3":
         		algorithm = new Algorithm3(rechthoeken);
         		break;
-        	case "4":
-        		algorithm = new Algorithm4(rechthoeken);
-        		break;
             default: 
             	writeAlgoNotExists(config.getString("output"));
             	System.out.println("This algorithm is not implemented. Please choose a valid algorithm.");
