@@ -23,7 +23,7 @@
 	\newpage
 	\section{Beschrijving algoritmen}
 	\subsection{Algoritme 1}
-	\emph{Algoritme 1} is een brute-force algoritme. Elke rechthoek wordt gecontroleerd met elke andere rechthoek voor snijding. Om te vermijden dat we twee rechthoeken dubbel controleren op snijpunten, houden we een lijst bij van de rechthoeken waarvoor we snijpunten met alle andere rechthoeken al zijn nagegaan. In pseudocode ziet dat er uit als volgt.
+	\emph{Algoritme 1} is een brute-force algoritme. Elke rechthoek wordt gecontroleerd met elke andere rechthoek voor snijding. Om te vermijden dat we twee rechthoeken dubbel controleren op snijpunten, houden we een hashset bij van de rechthoeken waarvoor we de snijpunten met alle andere rechthoeken al zijn nagegaan. We gebruiken een hashset omdat we dan in  $\mathcal{O}(1)$ tijd kunnen controleren of een bepaalde rechthoek al werd gecontroleerd op snijding met alle andere rechthoeken.\\ Hieronder het algoritme in pseudocode.
 	\begin{algorithm}[H]
 		\caption{}
 		\begin{algorithmic}[1]
@@ -63,8 +63,8 @@
 	\end{algorithm}
 	
 	\subsection{Algoritme 3}
-	\emph{Algoritme 3} is gebaseerd op \emph{algoritme 2}, het werkt grotendeels op dezelfde manier. In plaats van op snijding te controleren met alle actieve rechthoeken, controleert \emph{algoritme 3} enkel op snijding met de rechthoek waarvan de onderste zijde het dichtst bij de bovenste zijde van de geselecteerde rechthoek ligt en de rechthoek waarvan de bovenste zijde het dichtst bij de onderste zijde van de geselecteerde rechthoek ligt. Indien er snijding optreedt, herhalen we deze operatie in de desbetreffende richting. Voor snel deze rechthoeken te vinden, maken we gebruik van een Red-Black Tree. In een Red-Black Tree kan je de \texttt{ceiling()} en \texttt{floor()} van een element berekenen in $\mathcal{O}(\log n)$ tijd.
-	
+	\emph{Algoritme 3} is gebaseerd op \emph{algoritme 2}, het werkt grotendeels op dezelfde manier. Maar in plaats van de actieve rechthoeken te bewaren in een array, bewaren we ze deze keer in Red-Black Tree. Op deze manier kunnen we veel efficiënter gaan controleren op snijding. We voegen namelijk elke rechthoek die actief wordt twee keer toe aan deze Red-Black Tree, een keer met zijn grootste y-coördinaat als key en een keer met zijn kleinste y-coördinaat als key.  Wanneer we vervolgens gaan controleren op snijding van een bepaalde driehoek met de andere actieve rechthoeken dan kunnen we direct gaan kijken naar de rechthoeken die minstens één horizontale zijde hebben die tussen de minimale en de maximale y-coördinaat ligt van de desbetreffende rechthoek. Op deze manier vinden we onmiddellijk alle rechthoeken waarmee er wordt gesneden zonder dat we de volledige lijst van actieve rechthoeken moeten doorlopen (tenzij de desbetreffende rechthoek natuurlijk snijdt met alle actieve rechthoeken). Nog een verschil met algoritme twee is dat we nu niet enkel moeten gaan controleren op snijding wanneer we een element toevoegen, maar ook wanneer we een rechthoek terug verwijderen uit de actieve queue. Dit is omdat op het moment van verwijderen er eventueel nieuwe rechthoeken zijn toegevoegd, die kleiner zijn dan de betreffende rechthoek waardoor bij het toevoegen van die rechthoek de snijding nog niet wordt gedetecteerd.  Daarom moeten we opnieuw controleren op snijding bij het verwijderen van een rechthoek. \\ \\
+	We hebben in onze implementatie gekozen voor een Red-Black Tree, omdat dit de meest efficiënte manier is om een rij gesorteerd te houden en er in  $\mathcal{O}(\log n)$ tijd elementen aan toe te voegen en uit te verwijderen.	
 		\begin{algorithm}[H]
 			\caption{}
 			\begin{algorithmic}[1]
@@ -75,10 +75,11 @@
 				\State rect1 = queue.poll()
 				\If {rect $\notin$ active}
 				\State voeg rect toe aan de queue, met de x-coordinaat van het punt rechtsboven als sorteringscriterium.
-				\State snijpunten $\gets$ snijpunten $\cup$ alle snijpunten van rect met alle andere rechthoeken die actief zijn
-				\State active $\gets$ active $\cup$ rect
+				\State snijpunten $\gets$ snijpunten $\cup$ alle snijpunten van rect met alle andere rechthoeken die actief zijn en waarvan de ondersten en/of bovenste zijde van die rechthoeken zich bevindt tussen de kleinste en grootste y-coördinaat van rect.
+				\State active $\gets$ active $\cup$ twee keer rect toevoegen, één keer met zijn grootste y-coördinaat als sorteringscriterium en nog een keer met zijn kleinste y-coördinaat als sorteringscriterium.
 				\Else
-				\State active $\gets$ active $\backslash$ rect
+				\State active $\gets$ active $\backslash$ alle voorkomens van rect
+				\State snijpunten $\gets$ snijpunten $\cup$ alle snijpunten van rect met alle andere rechthoeken die actief zijn en waarvan de ondersten en/of bovenste zijde van die rechthoeken zich bevindt tussen de kleinste en grootste y-coördinaat van rect.
 				\EndIf
 				\EndWhile
 			\end{algorithmic}
@@ -86,7 +87,7 @@
 	
 	\section{Experimenten en correctheid}
 		\subsection{Experimenten}
-		We hebben verschillende experimenten uitgevoerd om de complexiteit en werking van onze algoritme na te gaan. Eerste hebben we een doubeling experiment uitgevoerd waarbij de x- en y-coördinaten van de hoekpunten tussen 0 en 1 liggen.  Nadien hebben opnieuw verschillende doubeling experimenten uitgevoerd waarbij eerst de x- en y-coördinaten van de hoekpunten tussen 0 en 0,2 liggen, daarna tussen 0 en 0.5 en vervolgens laten we de waardes van de hoekpunten variëren tussen 0 en 0.75.
+		We hebben verschillende experimenten uitgevoerd om de complexiteit van onze algoritmes na te gaan. Eerste hebben we een doubeling experiment uitgevoerd waarbij de x- en y-coördinaten van de hoekpunten tussen 0 en 1 liggen.  Nadien hebben opnieuw verschillende doubeling experimenten uitgevoerd waarbij de lengte van de zijdes van de rechthoeken tussen  respectievelijk 0 en 0.01, 0.01, 0.2 en 0.5 lagen.
 			\subsubsection{Doubeling experiment met hoekpunten tussen 0 en 1}
 				We hebben een doubeling experiment uitgevoerd waarbij het aantal rechthoeken laten toenemen vanaf 1 tot 8192.  We hebben hierbij de tijd in miliseconden gemeten die de drie algoritme nodig hebben om de snijpunten van de rechthoeken te vinden.
 				\begin{figure}[H]
