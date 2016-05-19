@@ -53,6 +53,7 @@ public class Draw extends JPanel {
 		coordinaten[0] = pasSchaalaan(rechthoek.getLo().getX());
 		coordinaten[1] = pasSchaalaan(rechthoek.getLo().getY());
 		coordinaten[2] = pasSchaalaan(rechthoek.getRb().getX()) - pasSchaalaan(rechthoek.getLo().getX());
+		coordinaten[3] = pasSchaalaan(rechthoek.getRb().getY()) - pasSchaalaan(rechthoek.getLo().getY());
 		return coordinaten;
 		
 		
