@@ -14,7 +14,7 @@ public final class Coordinate {
 		return this.y;
 	}
 	
-	double x, y;
+	private double x, y;
 
 	@Override
 	public int hashCode() {

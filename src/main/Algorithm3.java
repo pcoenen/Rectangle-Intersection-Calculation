@@ -32,7 +32,6 @@ public class Algorithm3 extends Algorithm {
 				queue.add(new StructureForPQ(struct.getRechthoek(), 1, struct.getRechthoek().getRb().getX()));
 				//Vergelijk alle rechthoeken die actief zijn
 				for(Coordinate intersection : check(struct.getRechthoek(), activeDown, activeUp)){
-					//intersections.put((Integer)Arrays.hashCode(intersection), intersection);
 					intersections.add(intersection);
 				}
 				//zet hem in de actieve lijst
@@ -44,7 +43,6 @@ public class Algorithm3 extends Algorithm {
 				activeUp.delete(struct.getRechthoek().getLo().getY());
 				activeDown.delete(struct.getRechthoek().getRb().getY());
 				for(Coordinate intersection : check(struct.getRechthoek(), activeDown, activeUp)){
-					//intersections.put((Integer)Arrays.hashCode(intersection), intersection);
 					intersections.add(intersection);
 				}
 			}
@@ -55,11 +53,10 @@ public class Algorithm3 extends Algorithm {
 	HashSet<Coordinate> check(Rectangle rect1, RedBlackBST<Double, Rectangle> activeDown, RedBlackBST<Double, Rectangle> activeUp){
 		HashSet<Coordinate> intersections = new HashSet<>();
 		double checkValue = rect1.getLo().getY();
-		boolean hasIntersection = true;
 		double key;
 		Rectangle rect2 = null;
 		HashSet<Coordinate> result;
-		while(hasIntersection && !activeDown.isEmpty()){
+		while(!activeDown.isEmpty()){			
 			try{
 				key = activeDown.ceiling(checkValue);
 			} catch(NullPointerException e){
@@ -75,7 +72,7 @@ public class Algorithm3 extends Algorithm {
 				activeDown.delete(key);
 				checkValue = key;
 			} else {
-				hasIntersection = false;
+				break;
 			}
 		}
 		if(rect2 != null){
@@ -84,11 +81,10 @@ public class Algorithm3 extends Algorithm {
 		}
 		//Voor bovenste
 		
-		checkValue = rect1.getLo().getY();
-		hasIntersection = true;
-		while(hasIntersection && !activeUp.isEmpty()){
+		checkValue = rect1.getRb().getY();
+		while(!activeUp.isEmpty()){
 			try{
-				key = activeUp.ceiling(checkValue);
+				key = activeUp.floor(checkValue);
 			} catch(NullPointerException e){
 				break;
 			}
@@ -102,7 +98,7 @@ public class Algorithm3 extends Algorithm {
 				activeUp.delete(key);
 				checkValue = key;
 			} else {
-				hasIntersection = false;
+				break;
 			}
 		}
 		if(rect2 != null){
