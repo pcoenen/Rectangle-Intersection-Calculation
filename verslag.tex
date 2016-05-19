@@ -143,8 +143,35 @@
 			Wanneer we kijken naar de grafiek in figuur 1 dan zien we dat de tijd die de algoritmen nodig hebben steeds zeer snel stijgt. \\
 			Voor het eerste algoritme zien we duidelijk dat dit kwadratisch blijkt te zijn, zoals we eerder hadden voorspeld.\\
 			Voor het tweede algoritme lijkt ook bijna kwadratisch te zijn, maar toch iets sneller dan het eerste algoritme.  Dit komt omdat er zeer veel rechthoeken zijn waarvan de zijdes een lengte kunnen hebben die maximaal gelijk is aan de maximale x-coördinaat.  Met andere woorden er kunnen dus rechthoeken zijn die gedurende de volledige tijd dat het algoritme wordt uitgevoerd zich in de actieve lijst bevinden.  In het gemiddeld geval zal elke rechthoek dus een lengte hebben van 0.5.  Als we aannemen de rechthoeken uniform verspreid zijn, wil dit dus zeggen dat steeds de helft van het totale aantal rechthoeken zich in de actieve lijst bevindt. Hierdoor presteert algoritme 2 zeer slecht, bijna worst-case, omdat elke rechthoek wordt vergeleken met de helft van het totale aantal rechthoeken, dit is dus inderdaad geen geweldige verbetering t.o.v. algoritme 1.\\
-			Algoritme 3 presteert nog het slechtst.  We hadden al eerder aangehaald dat het tweede algoritme in deze omstandig heden zeer slecht preseert, omdat er teveel elementen in de actieve lijst zitten. Algoritme 3 is bijna hetzelfde als algoritme 2  op het engie verschil na dat er gebruik wordt gemaakt van een Red-Black Tree voor het bijhouden van de actieve lijst.  Aangezien dat elke rechthoek twee keer wordt toegevoegd aan deze Red-Black Tree en dat het toevoegen van een element aan deze Red-Black Tree $\mathcal{O}(\log n)$ tijd kost, t.o.v. constante tijd voor het toevoegen van een element aan de een Array-list, is het dus niet moeilijk om in te zien dat dit algoritme in dit geval inderdaad slechter presteert.
+			Algoritme 3 presteert nog het slechtst.  We hadden al eerder aangehaald dat het tweede algoritme in deze omstandig heden zeer slecht preseert, omdat er teveel elementen in de actieve lijst zitten. Algoritme 3 is bijna hetzelfde als algoritme 2  op het engie verschil na dat er gebruik wordt gemaakt van een Red-Black Tree voor het bijhouden van de actieve lijst.  Aangezien dat elke rechthoek twee keer wordt toegevoegd aan deze Red-Black Tree en dat het toevoegen van een element aan deze Red-Black Tree $\mathcal{O}(\log n)$ tijd kost, t.o.v. constante tijd voor het toevoegen van een element aan de een Array-list, is het dus niet moeilijk om in te zien dat dit algoritme in dit geval inderdaad slechter presteert. De kost van het bijhouden van een gesorteerde lijst met daarin alle actieve rechthoeken om zo onnuttige checks te vermijden (omdat andere rechthoeken in y-waarde zeer ver liggen van de desbetreffende rechthoek) is dus groter dan de kost om een rechthoek te vergelijken op snijpunten met alle andere actieve rechthoeken. Dit komt ook omdat de verticale zijdes van de rechthoeken zeer groot kunnen worden, waardoor de meeste rechthoeken in het actieve gebied elkaar toch zullen kruisen en het bijhouden van een gesorteerde lijst dus enkel meer tijd zal kosten en weinig voordeel zal bieden.
 		\subsection{Doubeling experiment voor verschillende lengtes van de zijden}
-			
+			Zoals we zien op figuur 2, presteren algoritmes 2 en 3 veel beter wanneer de zijdes van de rechthoeken kleiner zijn.  We zien op deze grafiek duidelijk dat de tijscomplexiteit van algoritme 1 kwadratisch toeneemt, terwijl dat de algoritmen 2 en 3 zeer snel blijven. Dit komt omdat de lengte van zijden beperkt is tot 0.01 en de rechthoeken daardoor slechts kort in de actieve lijst blijven staan.  Op deze manier blijft het aantal rechthoeken waarmee een bepaalde rechthoek wordt vergeleken beperkt. Dit in tegenstelling met algoritme 1 waar elke rechthoek nog steeds wordt vergeleken met elke andere rechthoek ook al liggen die rechthoeken totaal niet in de buurt van elkaar. \\
+			Omdat de lengte van zowel de horizontale als de verticale zijdes beperkt blijven tot 0.01, kan ook het aantal rechthoeken uit de actieve lijst waarmee snijpunten worden gezocht beperkt worden, dit omdat het aantal rechthoeken dat zich binnen de minimale en maximale y-coördinaat van de desbetreffende rechthoek bevindt, ook beperkt zal zijn. Daardoor zal algoritme 3 nu ook veel beter presteren.  Wanneer we kijken naar de resultaten in de tabel dan zien we duidelijk dat dit ook het geval is. De twee $\mathcal{O}(\log n)$ operaties die er nu moeten gebeuren om elke rechthoek in de actieve lijst te steken, wegen nu op tegen het aantal vergelijkingen dat er nu minder wordt gedaan. Dit kunnen we ook duidelijk zien in de onderstaande tabel. Naarmate het aantal rechthoeken toeneemt zal het derde algoritme steeds beter presteren t.o.v. het tweede omdat het een heleboel nutteloze berekeningen vermijdt.
+		\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | l | l |}
+\hline
+\textbf{N}    &\textbf{Algoritme 1}  & \textbf{Algoritme 2} & \textbf{Algoritme 3} \\ \hline
+1     & 0,055517    & 1,284362   & 1,282963  \\ \hline
+2     & 0,076511    & 0,067647   & 0,059716 \\ \hline
+4     & 0,059249    & 0,062981   & 0,16142   \\ \hline
+8     & 0,165619    & 0,124564   & 0,202009    \\ \hline
+16    & 0,793104    & 0,226734   & 0,501989    \\ \hline
+32    & 1,287162    & 0,29065    & 0,74785     \\ \hline
+64    & 4,109214    & 0,63635    & 1,774687     \\ \hline
+128   & 9,296115    & 4,283696   & 2,997934     \\ \hline
+256   & 24,111769   & 8,204431   & 4,207651    \\ \hline
+512   & 45,772381   & 2,011219   & 4,963433   \\ \hline
+1024  & 80,574263   & 3,626819   & 7,264368     \\ \hline
+2048  & 205,435004  & 7,078222   & 12,793705   \\ \hline
+4096  & 820,382407  & 11,974941  & 21,557508    \\ \hline
+8192  & 3289,07998  & 31,238512  & 24,914204   \\ \hline
+16384 & 15940,14955 & 102,42475  & 65,278081    \\ \hline
+32768 & 67381,76355 & 460,93495  & 225,83225    \\ \hline
+65536 & 285255,7015 & 1555,7538  & 747,09444 \\ \hline
+\end{tabular}
+\caption{Tijd in miliseconden die elk algoritme nodig heeft om de snijpunten van rechthoeken met maximale zijden van 0.01 te berekenen.}
+\end{table}
+Aan figuur 3 tot 5 zien we duidelijk dat algoritmes 2 en 3 duidelijk slechter gaan presteren naarmate de lengte van de zijden toeneemt.  Zoals eerder al uitgelegd komt dit omdat de actieve lijst steeds groter wordt en er dus steeds meer rechthoeken met elkaar worden vergeleken. Dat algoritme 3 uiteindelijk slechter presteert dan algoritme 2 is omdat het de kost voor het geordend houden van de actieve lijst niet opweegt tegen het aantal vergelijkingen dat wordt vermeden, dit wederom omdat naarmate de zijden groter worden de rechthoeken ook steeds meer en meer in de y-richting op elkaar gaan liggen en het dus uiteindelijk gemakkelijker wordt om alle rechthoeken met elkaar te vergelijken op snijpunten, dan het bijhouden van de geordende lijst waaruit uiteindelijk toch bijna alle rechthoeken moeten worden gehaald.  Bij algoritme 3 moet het controleren op snijpunten met andere rechthoeken ook nog eens twee keer gebeuren, één keer bij het toevoegen van de rechthoek aan de actieve lijst en één keer bij het verwijderen.
 	
 \end{document}
