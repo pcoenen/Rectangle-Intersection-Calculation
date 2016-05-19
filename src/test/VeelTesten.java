@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.HashSet;
 
 import draw.Drawer;
@@ -19,10 +18,18 @@ import main.Rectangle;
 public class VeelTesten {
 	
 	public static void main(String[] args) throws IOException{
+		int N = 100000;
+		if (args.length == 1) {
+			try {
+				N = Integer.parseInt(args [0]);
+			} catch (NumberFormatException e) {
+				N = 100000;
+			}
+		}
 		HashSet<Rectangle> rechthoeken;
 		System.out.println("Begonnen met testen.");
 		System.out.println("Test 1");
-		for(int i = 1; i <= 100000; i++){
+		for(int i = 1; i <= N; i++){
 			if(i%100000 == 0){
 				System.out.println("Test " + i);
 			}
@@ -61,7 +68,7 @@ public class VeelTesten {
 		}
 		
 		//Read file
-	    String algoritme_nummer = reader.readLine();
+	    reader.readLine();
 		int n = Integer.parseInt(reader.readLine());
 	    //Lees de input rechthoeken
 	    String text = null;
