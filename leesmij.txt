@@ -1,0 +1,22 @@
+Het programma kan uitgevoerd worden door één van de scripts run.cmd of run.sh uit te voeren vanuit een terminal.
+Het is ook mogelijk om zelf het programma te starten met het commando:
+java -jar TMI.jar
+
+Standaard maakt het programma gebruik van de input-file invoerrechthoeken.txt en de output-file uitvoerrechthoeken.txt
+
+Verder zijn er nog enkele opties van het programma, die kunnen worden opgeroepen door de flags achter het commando te plaatsen, bijvoorbeeld: 
+java -jar TMI.jar --draw -i input.txt -o output.txt
+
+[-h | --help] 	Roep de helppagina van het programma op
+[-i | --input]	Specifieer de input-file (standaard: invoerrechthoeken.txt)
+[-o | --output]	Specifieer de output-file (standaard: uitvoerrechthoeken.txt)
+[-d | --draw]	Vraag een visuele voorstelling van de rechthoeken en hun snijpunten op
+
+Ten slotte zijn er nog enkele opties voor het genereren van een random input. Er wordt dan een input-file gegenereerd die wordt weggeschreven naar de locatie die wordt opgegeven als input-file. Als er geen locatie wordt opgegeven, wordt de standaard locatie gebruikt en wordt invoerrechthoeken dus overschreven met de nieuwe input-file.
+Het is verplicht om de nummer van het algoritme op te geven als de random optie wordt gebruikt.
+Het is ook mogelijk om de maximale lengte van een zijde van een rechthoek te specifiëren als er een random input worden gegenereerd.
+Voorbeeld: java -jar TMI.jar --draw -r 100 -a 2 -s 0.2
+
+[-r | --random]	Gebruik de random rechthoek generator, specifieer het gewenste aantal rechthoeken
+[-a | --algorithm] Het algoritme dat gebruikt moet worden bij de random gegenereerde file
+[-s | --side]	Specifieer de maximum lengte van een zijde van de rechthoeken
